@@ -1,21 +1,28 @@
-import CommonButton from "../components/elements/CommonButton";
-import CommonInput from "../components/elements/CommonInput";
-import CommonSelect from "../components/elements/CommonSelect";
-import CommonText from "../components/elements/CommonText";
-import CommonTextarea from "../components/elements/CommonTextarea";
-import IconPython from "../assets/img/icon-python.png";
-import Layout from "../layout/Layout";
-import Header from "../components/Header";
+import Layout from '../layout/Layout';
+import Header from '../components/Header';
+import Nav from '../components/Nav';
+import StudyList from '../components/StudyList';
+import styled from 'styled-components';
+import CommonTextarea from '../components/elements/CommonTextarea';
 
 const MainPage = () => {
   return (
     <>
       <Header />
       <Layout>
-        <div>dsfdsfd</div>
+        <StNav />
+        <StStudyList />
       </Layout>
     </>
   );
 };
+
+const StNav = styled(Nav)`
+  margin-top: 60px;
+`;
+
+const StStudyList = styled(StudyList)`
+  margin-top: 110px;
+`;
 
 export default MainPage;

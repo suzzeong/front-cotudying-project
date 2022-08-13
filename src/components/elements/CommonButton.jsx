@@ -1,6 +1,6 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import Button from "react-bootstrap/Button";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import Button from 'react-bootstrap/Button';
 
 const CommonButton = (props) => {
   const { onClick, type, btnname, bgcolor, text, disabled, fontcolor } = props;
@@ -27,7 +27,7 @@ const StBtn = styled(Button)`
   color: ${(props) => props.fontcolor};
   ${(props) => {
     return (
-      props.btnname === "basicBtn" &&
+      props.btnname === 'basicBtn' &&
       css`
         width: 100px;
         height: 36px;
@@ -36,7 +36,7 @@ const StBtn = styled(Button)`
   }}
   ${(props) => {
     return (
-      props.btnname === "longBtn" &&
+      props.btnname === 'longBtn' &&
       css`
         width: 100%;
         height: 40px;
