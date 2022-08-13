@@ -15,7 +15,6 @@ const CommonButton = (props) => {
       width={width}
       height={height}
       bgchover={bgchover}
-      fontsize
     >
       {text}
     </StBtn>
