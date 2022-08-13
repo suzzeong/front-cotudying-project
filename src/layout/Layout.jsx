@@ -8,6 +8,7 @@ const Layout = ({ children }) => {
 export default Layout;
 
 const StContainer = styled(Container)`
+  width: 100%;
   height: 100%;
   padding-bottom: 100px;
 `;
