@@ -14,7 +14,7 @@ const Header = () => {
         <StHeaderInner>
           <StLogoContainer>
             <StLogo>
-              <img src={logo} />
+              <img src={logo} alt="로고"/>
             </StLogo>
           </StLogoContainer>
           <StLoginGroup>
@@ -28,8 +28,9 @@ const Header = () => {
                     <CommonButton
                       bgcolor={colors.white}
                       fontcolor={colors.black}
-                      btnname="basicBtn"
                       text="로그아웃"
+                      width="100px"
+                      height="36px"
                     />
                   </StButton>
                 </StUser>
@@ -38,13 +39,15 @@ const Header = () => {
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname="basicBtn"
+                    width="100px"
+                    height="36px"
                     text="로그인"
                   />
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname="basicBtn"
+                    width="100px"
+                    height="36px"
                     text="회원가입"
                   />
                 </>

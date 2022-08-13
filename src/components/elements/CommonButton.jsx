@@ -1,17 +1,18 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 
 const CommonButton = (props) => {
-  const { onClick, type, btnname, bgcolor, text, disabled, fontcolor } = props;
+  const { onClick, type, bgcolor, text, disabled, fontcolor, width, height } = props;
   return (
     <StBtn
       onClick={onClick}
       type={type}
-      btnname={btnname}
       bgcolor={bgcolor}
       disabled={disabled}
       fontcolor={fontcolor}
+      width={width}
+      height={height}
     >
       {text}
     </StBtn>
@@ -25,24 +26,8 @@ const StBtn = styled(Button)`
   border: none;
   background-color: ${(props) => props.bgcolor};
   color: ${(props) => props.fontcolor};
-  ${(props) => {
-    return (
-      props.btnname === "basicBtn" &&
-      css`
-        width: 100px;
-        height: 36px;
-      `
-    );
-  }}
-  ${(props) => {
-    return (
-      props.btnname === "longBtn" &&
-      css`
-        width: 100%;
-        height: 40px;
-      `
-    );
-  }}
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
 `;
 
 export default CommonButton;
