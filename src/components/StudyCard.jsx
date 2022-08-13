@@ -2,15 +2,33 @@ import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonText from '../components/elements/CommonText';
 import CommonButton from '../components/elements/CommonButton';
+import { useState } from 'react';
 
 const StudyCard = ({ data }) => {
   const { category, title, content, period, user, num } = data;
+  const [isFull, setIsFull] = useState(false);
+
+  // console.log('num', num, 'userlength', user.length);
+
+  // if (num === user.length) {
+  //   setIsFull(true);
+  // }
 
   return (
     <StCardContainer>
       <StTextGroup>
-        <CommonText fs='big'>{category}</CommonText>
-        <CommonText color={colors.primary}>모집 중</CommonText>
+        <CommonText fs='20px' fw='bold'>
+          {category}
+        </CommonText>
+        {/* {isFull ? (
+          <CommonText color={colors.disabledText} fw='bold'>
+            모집 완료
+          </CommonText>
+        ) : (
+          <CommonText color={colors.primary} fw='bold'>
+            모집 중
+          </CommonText>
+        )} */}
       </StTextGroup>
       <StBox>{title}</StBox>
       <StBox>{period}</StBox>
@@ -30,7 +48,7 @@ const StudyCard = ({ data }) => {
 export default StudyCard;
 
 const StCardContainer = styled.div`
-  width: 280px;
+  width: 100%;
   padding: 26px;
   border-radius: 6px;
   background: ${colors.boxColor};
@@ -40,7 +58,7 @@ const StTextGroup = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 const StBox = styled.div`
   background-color: ${colors.white};

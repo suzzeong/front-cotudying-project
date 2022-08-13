@@ -9,7 +9,6 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <div>깃 테스트</div>
       <Layout>
         <StNav />
         <StStudyList />
@@ -23,7 +22,7 @@ const StNav = styled(Nav)`
 `;
 
 const StStudyList = styled(StudyList)`
-  margin-top: 110px;
+  margin-top: 80px;
 `;
 
 export default MainPage;
