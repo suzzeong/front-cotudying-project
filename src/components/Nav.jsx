@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { colors } from '../theme/theme';
 import styled from 'styled-components';
 import CategoryButton from './CategoryButton';
@@ -16,19 +16,19 @@ const icons = [
   { icon: iconAll, value: 'all' },
   { icon: iconSpring, value: 'spring' },
   { icon: iconJava, value: 'java' },
-  { icon: iconPython, value: 'python' },
   { icon: iconReact, value: 'react' },
   { icon: iconJs, value: 'js' },
   { icon: iconNode, value: 'node' },
+  { icon: iconPython, value: 'python' },
   { icon: iconC, value: 'c' },
   { icon: iconEtc, value: 'etc' },
 ];
 
-const handleIconClick = (e) => {
-  console.log(e);
-};
-
 const Nav = ({ className }) => {
+  const [categoryName, setCategoryName] = useState('all');
+
+  console.log('categoryName', categoryName);
+
   return (
     <>
       <StNav className={className}>
@@ -37,7 +37,7 @@ const Nav = ({ className }) => {
             <CategoryButton
               key={icon.icon}
               src={icon}
-              // onClick={() => handleIconClick(icon.value)}
+              onClick={() => setCategoryName(icon.value)}
             />
           ))}
         </StNavList>

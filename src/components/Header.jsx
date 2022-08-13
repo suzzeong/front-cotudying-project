@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Layout from '../layout/Layout';
 import { colors } from '../theme/theme';
@@ -7,12 +8,13 @@ import Logo from './Logo';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <StHeader>
       <Layout>
         <StHeaderInner>
-          <Logo />
+          <Logo height='100%' />
           <StLoginGroup>
             <>
               {isLogin ? (
@@ -38,6 +40,7 @@ const Header = () => {
                     width='100px'
                     height='36px'
                     text='로그인'
+                    onClick={() => navigate('/login')}
                   />
                   <CommonButton
                     bgcolor={colors.white}
@@ -45,6 +48,7 @@ const Header = () => {
                     width='100px'
                     height='36px'
                     text='회원가입'
+                    onClick={() => navigate('/signup')}
                   />
                 </>
               )}

@@ -5,13 +5,13 @@ import { colors } from '../theme/theme';
 const CategoryButton = ({ src, onClick }) => {
   const [isSelect, setIsSelect] = useState(false);
 
-  const handleIconClick = (e) => {
-    console.log(e.target.alt);
-    // setIsSelect(e.target.value);
-  };
+  // const onClick = (e) => {
+  //   // console.log(e.target.alt);
+  //   setIsSelect(true);
+  // };
 
   return (
-    <StIconContainer onClick={handleIconClick}>
+    <StIconContainer onClick={onClick}>
       <img src={src.icon} alt={src.value} />
     </StIconContainer>
   );

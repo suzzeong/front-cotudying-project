@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png';
 
-const Logo = () => {
+const Logo = ({ height }) => {
   return (
-    <StLogoContainer>
+    <StLogoContainer height={height}>
       <StLogo>
         <img src={logo} alt='아이콘' />
       </StLogo>
@@ -15,6 +15,7 @@ export default Logo;
 
 const StLogoContainer = styled.div`
   width: 100%;
+  height: ${(props) => props.height};
   display: flex;
   align-items: center;
   justify-content: center;
