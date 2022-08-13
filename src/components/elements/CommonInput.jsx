@@ -24,7 +24,6 @@ const CommonInput = (props) => {
     <StInput>
       <StInputLabel controlId={controlId} label={label}>
         <StInputForm
-          as="input"
           maxLength={maxLength}
           title={title}
           id={id}
