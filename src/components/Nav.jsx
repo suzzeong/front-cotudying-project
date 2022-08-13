@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors } from '../theme/theme';
 import styled from 'styled-components';
-import CategoryIcon from './CategoryIcon';
+import CategoryButton from './CategoryButton';
 import iconAll from '../assets/img/icon-all.png';
 import iconEtc from '../assets/img/icon-etc.png';
 import iconJs from '../assets/img/icon-js.png';
@@ -13,16 +13,20 @@ import iconSpring from '../assets/img/icon-spring.png';
 import iconReact from '../assets/img/icon-react.png';
 
 const icons = [
-  iconAll,
-  iconSpring,
-  iconJava,
-  iconPython,
-  iconReact,
-  iconJs,
-  iconNode,
-  iconC,
-  iconEtc,
+  { icon: iconAll, value: 'all' },
+  { icon: iconSpring, value: 'spring' },
+  { icon: iconJava, value: 'java' },
+  { icon: iconPython, value: 'python' },
+  { icon: iconReact, value: 'react' },
+  { icon: iconJs, value: 'js' },
+  { icon: iconNode, value: 'node' },
+  { icon: iconC, value: 'c' },
+  { icon: iconEtc, value: 'etc' },
 ];
+
+const handleIconClick = (e) => {
+  console.log(e);
+};
 
 const Nav = ({ className }) => {
   return (
@@ -30,7 +34,11 @@ const Nav = ({ className }) => {
       <StNav className={className}>
         <StNavList>
           {icons.map((icon) => (
-            <CategoryIcon key={icon} src={icon} />
+            <CategoryButton
+              key={icon.icon}
+              src={icon}
+              // onClick={() => handleIconClick(icon.value)}
+            />
           ))}
         </StNavList>
       </StNav>
