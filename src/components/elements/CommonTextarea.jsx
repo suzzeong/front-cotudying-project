@@ -22,6 +22,8 @@ const CommonTextarea = (props) => {
     <StTextarea>
       <StTextareaLabel controlId={controlId} label={label}>
         <StTextareaForm
+          as='textarea'
+          wrap='hard'
           maxLength={maxLength}
           title={title}
           id={id}

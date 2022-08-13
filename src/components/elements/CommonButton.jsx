@@ -1,17 +1,21 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Button from 'react-bootstrap/Button';
+import { colors } from '../../theme/theme';
 
 const CommonButton = (props) => {
-  const { onClick, type, btnname, bgcolor, text, disabled, fontcolor } = props;
+  const { onClick, type, bgcolor, text, disabled, fontcolor, width, height, bgchover } = props;
   return (
     <StBtn
       onClick={onClick}
       type={type}
-      btnname={btnname}
       bgcolor={bgcolor}
       disabled={disabled}
       fontcolor={fontcolor}
+      width={width}
+      height={height}
+      bgchover={bgchover}
+      fontsize
     >
       {text}
     </StBtn>
@@ -21,28 +25,19 @@ const CommonButton = (props) => {
 const StBtn = styled(Button)`
   cursor: pointer;
   box-sizing: border-box;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   background-color: ${(props) => props.bgcolor};
   color: ${(props) => props.fontcolor};
-  ${(props) => {
-    return (
-      props.btnname === 'basicBtn' &&
-      css`
-        width: 100px;
-        height: 36px;
-      `
-    );
-  }}
-  ${(props) => {
-    return (
-      props.btnname === 'longBtn' &&
-      css`
-        width: 100%;
-        height: 40px;
-      `
-    );
-  }}
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  :hover {
+    background-color: ${(props) => props.bgchover}
+  }
+  :disabled {
+    background-color: ${colors.disabled};
+    color: ${colors.disabledText};
+  }
 `;
 
 export default CommonButton;

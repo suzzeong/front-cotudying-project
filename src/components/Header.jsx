@@ -24,8 +24,9 @@ const Header = () => {
                     <CommonButton
                       bgcolor={colors.white}
                       fontcolor={colors.black}
-                      btnname='basicBtn'
-                      text='로그아웃'
+                      text="로그아웃"
+                      width="100px"
+                      height="36px"
                     />
                   </StButton>
                 </StUser>
@@ -34,14 +35,16 @@ const Header = () => {
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname='basicBtn'
-                    text='로그인'
+                    width="100px"
+                    height="36px"
+                    text="로그인"
                   />
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname='basicBtn'
-                    text='회원가입'
+                    width="100px"
+                    height="36px"
+                    text="회원가입"
                   />
                 </>
               )}

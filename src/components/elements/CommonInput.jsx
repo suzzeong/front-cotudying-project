@@ -24,6 +24,7 @@ const CommonInput = (props) => {
     <StInput>
       <StInputLabel controlId={controlId} label={label}>
         <StInputForm
+          as="input"
           maxLength={maxLength}
           title={title}
           id={id}
@@ -52,7 +53,7 @@ const StInputForm = styled(Form.Control)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin: ${(props) => props.margin};
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 16px;
   word-wrap: break-word;
   box-sizing: border-box;
