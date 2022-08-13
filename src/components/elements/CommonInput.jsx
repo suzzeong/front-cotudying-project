@@ -4,14 +4,25 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const CommonInput = (props) => {
-  const {maxLength, title, id, type, value, name, onChange, placeholder, width, margin, ariaLabel, ariaDescribedby,
-    controlId, label} = props;
+  const {
+    maxLength,
+    title,
+    id,
+    type,
+    value,
+    name,
+    onChange,
+    placeholder,
+    width,
+    margin,
+    ariaLabel,
+    ariaDescribedby,
+    controlId,
+    label,
+  } = props;
   return (
     <StInput>
-      <StInputLabel
-        controlId={controlId}
-        label={label}
-      >
+      <StInputLabel controlId={controlId} label={label}>
         <StInputForm
           maxLength={maxLength}
           title={title}
@@ -26,16 +37,16 @@ const CommonInput = (props) => {
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedby}
         />
-      </StInputLabel>    
+      </StInputLabel>
     </StInput>
   );
 };
 
 export default CommonInput;
 
-const StInput = styled.div``
+const StInput = styled.div``;
 
-const StInputLabel = styled(FloatingLabel)``
+const StInputLabel = styled(FloatingLabel)``;
 
 const StInputForm = styled(Form.Control)`
   width: ${(props) => props.width};

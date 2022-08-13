@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import logo from "../assets/img/logo.png";
+import styled from 'styled-components';
+import logo from '../assets/img/logo.png';
 
 const Logo = () => {
   return (
     <StLogoContainer>
       <StLogo>
-        <img src={logo} />
+        <img src={logo} alt='아이콘' />
       </StLogo>
     </StLogoContainer>
   );

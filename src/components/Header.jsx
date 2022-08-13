@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import Layout from "../layout/Layout";
-import { colors } from "../theme/theme";
-import logo from "../assets/img/logo.png";
-import CommonButton from "./elements/CommonButton";
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Layout from '../layout/Layout';
+import { colors } from '../theme/theme';
+import CommonButton from './elements/CommonButton';
+import Logo from './Logo';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -12,11 +12,7 @@ const Header = () => {
     <StHeader>
       <Layout>
         <StHeaderInner>
-          <StLogoContainer>
-            <StLogo>
-              <img src={logo} />
-            </StLogo>
-          </StLogoContainer>
+          <Logo />
           <StLoginGroup>
             <React.Fragment>
               {isLogin ? (
@@ -28,8 +24,8 @@ const Header = () => {
                     <CommonButton
                       bgcolor={colors.white}
                       fontcolor={colors.black}
-                      btnname="basicBtn"
-                      text="로그아웃"
+                      btnname='basicBtn'
+                      text='로그아웃'
                     />
                   </StButton>
                 </StUser>
@@ -38,14 +34,14 @@ const Header = () => {
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname="basicBtn"
-                    text="로그인"
+                    btnname='basicBtn'
+                    text='로그인'
                   />
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    btnname="basicBtn"
-                    text="회원가입"
+                    btnname='basicBtn'
+                    text='회원가입'
                   />
                 </>
               )}
@@ -68,23 +64,6 @@ const StHeaderInner = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-`;
-
-const StLogoContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StLogo = styled.div`
-  width: 350px;
-  cursor: pointer;
-
-  img {
-    width: 100%;
-  }
 `;
 
 const StUser = styled.div`
