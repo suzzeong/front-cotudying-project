@@ -66,9 +66,14 @@ const StudyList = ({ className }) => {
 
   return (
     <StListContainer className={className}>
-      {data.map((item) => (
-        <StudyCard key={item.id} data={item} />
-      ))}
+      {data
+        .filter(
+          (category) =>
+            selectedCategory === 'all' || category.category === selectedCategory
+        )
+        .map((item) => (
+          <StudyCard key={item.id} data={item} />
+        ))}
     </StListContainer>
   );
 };
