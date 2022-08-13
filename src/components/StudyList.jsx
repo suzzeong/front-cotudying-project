@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import StudyCard from './StudyCard';
+import { useState } from 'react';
 
 const StudyList = ({ className }) => {
   const data = [
@@ -60,6 +61,9 @@ const StudyList = ({ className }) => {
     },
   ];
 
+  const [isFull, setIsFull] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
   return (
     <StListContainer className={className}>
       {data.map((item) => (
@@ -73,6 +77,6 @@ export default StudyList;
 
 const StListContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  row-gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
 `;
