@@ -14,7 +14,7 @@ const Header = () => {
         <StHeaderInner>
           <Logo />
           <StLoginGroup>
-            <React.Fragment>
+            <>
               {isLogin ? (
                 <StUser>
                   <StLoginText>
@@ -24,9 +24,9 @@ const Header = () => {
                     <CommonButton
                       bgcolor={colors.white}
                       fontcolor={colors.black}
-                      text="로그아웃"
-                      width="100px"
-                      height="36px"
+                      text='로그아웃'
+                      width='100px'
+                      height='36px'
                     />
                   </StButton>
                 </StUser>
@@ -35,20 +35,20 @@ const Header = () => {
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    width="100px"
-                    height="36px"
-                    text="로그인"
+                    width='100px'
+                    height='36px'
+                    text='로그인'
                   />
                   <CommonButton
                     bgcolor={colors.white}
                     fontcolor={colors.black}
-                    width="100px"
-                    height="36px"
-                    text="회원가입"
+                    width='100px'
+                    height='36px'
+                    text='회원가입'
                   />
                 </>
               )}
-            </React.Fragment>
+            </>
           </StLoginGroup>
         </StHeaderInner>
       </Layout>
@@ -66,7 +66,7 @@ const StHeader = styled.header`
 const StHeaderInner = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 150px;
 `;
 
 const StUser = styled.div`
