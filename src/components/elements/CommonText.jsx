@@ -8,7 +8,7 @@ const CommonText = (props) => {
 export default CommonText;
 
 const StText = styled.div`
-  font-size: ${({ fs }) => (fs === "big" ? "20px" : "14px")};
+  font-size: ${({ fs }) => fs};
   font-weight: ${({ fw }) => fw};
   color: ${({ color }) => color};
 `;

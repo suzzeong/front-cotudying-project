@@ -3,14 +3,14 @@ import Header from "../components/Header";
 import StudyInfo from '../components/StudyInfo';
 
 const DetailPage = () => {
-  return <div>
+  return (
     <>
       <Header />
       <Layout>
         <StudyInfo/>
       </Layout>
     </>
-    </div>;
+  );
 };
 
 export default DetailPage;
