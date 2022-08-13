@@ -9,6 +9,7 @@ const MainPage = () => {
   return (
     <>
       <Header />
+      <div>깃 테스트</div>
       <Layout>
         <StNav />
         <StStudyList />
