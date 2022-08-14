@@ -20,7 +20,7 @@ const StudyList = ({ className }) => {
       num: 4,
       content: '같이 파이썬 공부',
       period: '2022-08-09 ~ 2022-09-09',
-      user: ['user1'],
+      user: ['user1', 'user2', 'user3', 'user4'],
     },
     {
       id: 3,

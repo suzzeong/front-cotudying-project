@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { colors } from '../theme/theme';
 import CommonSelect from './elements/CommonSelect';
 import CommonInput from './elements/CommonInput';
@@ -11,10 +11,28 @@ import CommonText from './elements/CommonText';
 const StudyForm = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [category, setCategory] = useState('');
+  const [num, setNum] = useState(0);
+  const [isActive, setIsActive] = useState(true);
 
-  // console.log(startDate, endDate);
-  // console.log(content);
+  const handleActive = () => {
+    if (
+      title !== '' &&
+      startDate !== '' &&
+      endDate !== '' &&
+      content !== '' &&
+      category !== '' &&
+      num !== ''
+    ) {
+      setIsActive(false);
+    } else {
+      setIsActive(true);
+    }
+  };
+
+  console.log(title, content, category, num, startDate, endDate);
 
   return (
     <StContainer>
@@ -22,10 +40,23 @@ const StudyForm = () => {
       <StFormContainer>
         <StBlock>
           <StTopFormBox>
-            <CommonInput placeholder='스터디명' label='스터디명' />
+            <CommonInput
+              placeholder='스터디명'
+              label='스터디명'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </StTopFormBox>
           <StTopFormBox>
-            <CommonSelect ht='100%' name='모집 인원' values={[1, 2, 3, 4]} />
+            <CommonSelect
+              ht='100%'
+              name='모집 인원'
+              value={num}
+              values={[1, 2, 3, 4]}
+              onChange={(e) => {
+                setNum(e.target.value);
+              }}
+            />
           </StTopFormBox>
         </StBlock>
 
@@ -38,7 +69,10 @@ const StudyForm = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                  setStartDate(date);
+                  handleActive();
+                }}
                 minDate={new Date()}
               />
               <StText> ~ </StText>
@@ -47,7 +81,10 @@ const StudyForm = () => {
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
-                onChange={(date) => setEndDate(date)}
+                onChange={(date) => {
+                  setEndDate(date);
+                  handleActive();
+                }}
                 minDate={startDate}
               />
             </StDateBox>
@@ -57,6 +94,11 @@ const StudyForm = () => {
             <CommonSelect
               ht='100%'
               name='배울 언어'
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                handleActive();
+              }}
               values={['spring', 'java', 'react', 'js', 'python', 'c', 'etc']}
             />
           </StMidFormBox>
@@ -68,13 +110,21 @@ const StudyForm = () => {
             cols='30'
             placeholder='내용'
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => {
+              setContent(e.target.value);
+              handleActive();
+            }}
           />
         </StTextBlock>
       </StFormContainer>
 
       <StButton>
-        <CommonButton text='제출하기' fz='20px' width='150px' />
+        <CommonButton
+          text='제출하기'
+          fz='20px'
+          width='150px'
+          disabled={isActive}
+        />
       </StButton>
     </StContainer>
   );

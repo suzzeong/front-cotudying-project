@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
 
 const CommonSelect = (props) => {
-  const { ariaLabel, width, ht, name, values } = props;
+  const { ariaLabel, width, ht, name, values, onChange } = props;
 
   // const objLen = Object.keys(rest).length;
 
   return (
-    <StSelect aria-label={ariaLabel} width={width} ht={ht}>
-      <option>{name}</option>
+    <StSelect aria-label={ariaLabel} width={width} ht={ht} onChange={onChange}>
+      <option value=''>{name}</option>
       {values.map((value) => (
         <option key={value} value={value}>
           {value}
