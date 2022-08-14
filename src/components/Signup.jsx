@@ -6,116 +6,217 @@ import CommonInput from './elements/CommonInput';
 import Logo from './Logo';
 
 const Signup = () => {
-  const initialValues = { id: '', email: '', password: '', passwordcheck: '' };
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [inputValue, setInputValue] = useState({
+    userId: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-  const handleChange = (e) => {
-    // console.log(e.target);
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-    // console.log(formValues);
+  const [formError, setFormError] = useState({
+    idError: false,
+    emailError: false,
+    passwordError: false,
+    confirmPasswordError: false,
+  });
+
+  const [idCheck, setIdCheck] = useState(false);
+  const [isSameId, setIsSameId] = useState(false);
+
+  const { userId, email, password, confirmPassword } = inputValue;
+  const { idError, emailError, passwordError, confirmPasswordError } =
+    formError;
+  const [isActive, setIsActive] = useState(false);
+
+  // userId 체크
+  const handleChangeUserId = (e) => {
+    const userIdRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,20}$/;
+
+    if (!e.target.value || userIdRegex.test(e.target.value)) {
+      setIdCheck(false);
+      setFormError({ ...formError, idError: true });
+    } else {
+      setFormError({ ...formError, idError: false });
+    }
+
+    setInputValue((prev) => {
+      return {
+        ...prev,
+        userId: e.target.value,
+      };
+    });
   };
+
+  // email 체크
+  const handleChangeEmail = (e) => {
+    const emailRegex =
+      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+
+    if (!e.target.value || emailRegex.test(e.target.value)) {
+      setFormError({ ...formError, emailError: true });
+    } else {
+      setFormError({ ...formError, emailError: false });
+    }
+
+    setInputValue((prev) => {
+      return {
+        ...prev,
+        email: e.target.value,
+      };
+    });
+  };
+
+  // password 체크
+  const handleChangePassword = (e) => {
+    const passwordRegex =
+      /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{6,20}$/;
+    if (!e.target.value || passwordRegex.test(e.target.value)) {
+      setFormError({ ...formError, passwordError: true });
+    } else {
+      setFormError({ ...formError, passwordError: false });
+    }
+
+    setInputValue((prev) => {
+      return {
+        ...prev,
+        password: e.target.value,
+      };
+    });
+  };
+
+  // password 확인 체크
+  const handleChangeConfirmPassword = (e) => {
+    if (password === e.target.value) {
+      setFormError({ ...formError, confirmPasswordError: true });
+    } else {
+      setFormError({ ...formError, confirmPasswordError: false });
+    }
+
+    setInputValue((prev) => {
+      return {
+        ...prev,
+        confirmPassword: e.target.value,
+      };
+    });
+  };
+
+  console.log(inputValue, formError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
+    alert(JSON.stringify(inputValue, null, 2));
+  };
+
+  const handleIdCheck = (e) => {
+    e.preventDefault();
+    if (formError.idError && inputValue.userId !== '') {
+      setIdCheck(true);
+    }
+    // setIsSameId(true);
   };
 
   useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
-
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    // const regex =
-    //   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
-    if (!values.id) {
-      errors.id = '이름을 입력해주세요.';
-    }
-    if (!values.email) {
-      errors.email = '이메일을 입력해주세요.';
-    } else if (!regex.test(values.email)) {
-      errors.email = '이메일 형식에 맞춰 입력해주세요.';
-    }
-    if (!values.password) {
-      errors.password = '비밀번호를 입력해주세요.';
-    } else if (values.password.length < 4) {
-      errors.password = '비밀번호를 4글자 이상 입력해주세요.';
-    }
-    if (!values.passwordcheck) {
-      errors.passwordcheck = '비밀번호를 다시 입력해주세요.';
-    } else if (values.password !== values.passwordcheck) {
-      errors.passwordcheck = '비밀번호가 일치하지 않습니다.';
-    }
-    return errors;
-  };
+    setFormError({
+      idError: true,
+      emailError: true,
+      passwordError: true,
+      confirmPasswordError: true,
+    });
+  }, []);
 
   return (
     <SignupContainer>
       <Logo />
       <SignupTitle>회원가입</SignupTitle>
       <SignupForm onSubmit={handleSubmit}>
-        <div>
-          <EmailInput>
+        <StInputBox>
+          <StInput>
             <CommonInput
               type='text'
-              value={formValues.id}
-              name='id'
-              onChange={handleChange}
-              label='Id'
-              placeholder='Id'
-              margin='0 0 20px 0'
+              value={userId}
+              name='userId'
+              onChange={handleChangeUserId}
+              label='ID'
+              placeholder='ID'
+              margin='0 0 40px 0'
+              maxLength='20'
             />
-          </EmailInput>
-          <EmailInput>
+            <StButtonContainer>
+              <CommonButton text='중복확인' onClick={handleIdCheck} />
+            </StButtonContainer>
+
+            {!idError ? (
+              <StMessage>
+                2자 이상 16자 이하, 영어 또는 숫자 또는 한글
+              </StMessage>
+            ) : null}
+
+            {idCheck &&
+              (isSameId ? (
+                <StMessage>이미 존재하는 아이디입니다.</StMessage>
+              ) : (
+                <StMessage success='true'>사용 가능한 아이디입니다.</StMessage>
+              ))}
+          </StInput>
+
+          <StInput>
             <CommonInput
               type='text'
-              value={formValues.email}
+              value={email}
               name='email'
-              onChange={handleChange}
+              onChange={handleChangeEmail}
               label='Email'
               placeholder='Email'
-              margin='0 0 20px 0'
+              margin='0 0 40px 0'
+              maxLength='50'
             />
-          </EmailInput>
-          <PasswordInput>
+            {!emailError ? (
+              <StMessage>이메일 형식에 맞춰서 입력해주세요</StMessage>
+            ) : null}
+          </StInput>
+
+          <StInput>
             <CommonInput
               type='password'
-              value={formValues.password}
+              value={password}
               name='password'
-              onChange={handleChange}
+              onChange={handleChangePassword}
               label='Password'
               placeholder='Password'
-              margin='0 0 20px 0'
+              margin='0 0 40px 0'
+              maxLength='20'
             />
-          </PasswordInput>
-          <PasswordCheckInput>
+            {!passwordError ? (
+              <StMessage>6자 이상 16자 이하, 영어와 숫자</StMessage>
+            ) : null}
+          </StInput>
+
+          <StInput>
             <CommonInput
               type='password'
-              value={formValues.passwordcheck}
-              name='passwordcheck'
-              onChange={handleChange}
+              value={confirmPassword}
+              name='confirmPassword'
+              onChange={handleChangeConfirmPassword}
               label='Confirm password'
               placeholder='Confirm password'
-              margin='0 0 20px 0'
+              margin='0 0 40px 0'
+              maxLength='20'
             />
-          </PasswordCheckInput>
-        </div>
+            {!confirmPasswordError ? (
+              <StMessage>비밀번호가 일치하지 않습니다.</StMessage>
+            ) : null}
+          </StInput>
+        </StInputBox>
+
         <LoginButton>
           <CommonButton
             type='submit'
             bgcolor={colors.primary}
             fontcolor={colors.white}
             width='100%'
-            height='40px'
+            height='50px'
             text='회원가입'
+            disabled={isActive ? false : true}
           />
         </LoginButton>
       </SignupForm>
@@ -143,24 +244,39 @@ const SignupTitle = styled.h1`
 const SignupForm = styled.form`
   background-color: ${colors.white};
   border-radius: 10px;
-  width: 500px;
-  height: auto;
-  padding: 30px 50px;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-const EmailInput = styled.div``;
+const StInputBox = styled.div`
+  div + div {
+    margin-top: 30px;
+  }
+`;
 
-const PasswordInput = styled.div``;
-
-const PasswordCheckInput = styled.div``;
+const StInput = styled.div`
+  position: relative;
+`;
 
 const LoginButton = styled.div`
-  display: flex;
-  justify-content: center;
-  button + button {
-    margin-left: 20px;
-  }
+  margin-top: 40px;
+`;
+
+const StMessage = styled.p`
+  position: absolute;
+  left: 0;
+  bottom: -24px;
+  font-size: 14px;
+  color: ${(props) => (props.success ? colors.primary : colors.danger)};
+`;
+
+const StButtonContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(-20%, -50%);
 `;

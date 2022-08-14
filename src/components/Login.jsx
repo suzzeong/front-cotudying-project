@@ -34,7 +34,7 @@ const Login = () => {
     }
   }, [formErrors]);
 
-  console.log(formErrors)
+  console.log(formErrors);
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -52,7 +52,7 @@ const Login = () => {
     }
     return errors;
   };
-  //(<pre>{JSON.stringify(formValues, undefined, 2)}</pre>)
+
   return (
     <LoginContainer>
       <Logo />
@@ -63,8 +63,8 @@ const Login = () => {
         ) : (
           <></>
         )}
-        <div>
-          <EmailInput>
+        <StInputBox>
+          <StInput>
             <CommonInput
               type='text'
               value={formValues.email}
@@ -72,11 +72,12 @@ const Login = () => {
               onChange={handleChange}
               label='Email'
               placeholder='Email'
-              margin='0 0 20px 0'
+              margin='0 0 40px 0'
             />
-          </EmailInput>
-          <p>{formErrors.email}</p>
-          <PasswordInput>
+            <StMessage>{formErrors.email}</StMessage>
+          </StInput>
+
+          <StInput>
             <CommonInput
               type='password'
               value={formValues.password}
@@ -84,20 +85,21 @@ const Login = () => {
               onChange={handleChange}
               label='Password'
               placeholder='Password'
-              margin='0 0 20px 0'
+              margin='0 0 40px 0'
             />
-            <p>{formErrors.password}</p>
-          </PasswordInput>
-        </div>
+            <StMessage>{formErrors.password}</StMessage>
+          </StInput>
+        </StInputBox>
         <LoginButton>
           <CommonButton
             type='submit'
             bgcolor={colors.primary}
             fontcolor={colors.white}
             width='100%'
-            height='40px'
+            height='50px'
             text='로그인'
             // disabled={disabled}
+            onClick={(e) => e.preventDefault()}
           />
           <CommonButton
             onClick={() => {
@@ -106,7 +108,7 @@ const Login = () => {
             bgcolor={colors.primary}
             fontcolor={colors.white}
             width='100%'
-            height='40px'
+            height='50px'
             text='회원가입'
           />
         </LoginButton>
@@ -135,17 +137,31 @@ const LoginTitle = styled.h1`
 const LoginForm = styled.div`
   background-color: ${colors.white};
   border-radius: 10px;
-  width: 500px;
-  height: 300px;
-  padding: 30px 50px;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-const EmailInput = styled.div``;
+const StInputBox = styled.div`
+  height: 200px;
 
-const PasswordInput = styled.div``;
+  div + div {
+    margin-top: 30px;
+  }
+`;
+
+const StInput = styled.div`
+  position: relative;
+`;
+
+const StMessage = styled.p`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+`;
 
 const LoginButton = styled.div`
   display: flex;

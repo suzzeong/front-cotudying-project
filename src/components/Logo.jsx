@@ -2,10 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png';
 
-const Logo = ({ height, onClick }) => {
+const Logo = ({ height }) => {
+  const navigate = useNavigate();
+
   return (
-    <StLogoContainer height={height} onClick={onClick}>
-      <StLogo>
+    <StLogoContainer height={height}>
+      <StLogo onClick={() => navigate('/')}>
         <img src={logo} alt='아이콘' />
       </StLogo>
     </StLogoContainer>

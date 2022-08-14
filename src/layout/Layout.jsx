@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
+import { colors } from '../theme/theme';
 
 const Layout = ({ children }) => {
   return <StContainer>{children}</StContainer>;
