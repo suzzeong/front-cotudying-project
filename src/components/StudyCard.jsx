@@ -20,7 +20,7 @@ const StudyCard = ({ data }) => {
         <CommonText fs='20px' fw='bold'>
           {category}
         </CommonText>
-        {/* {isFull ? (
+        {user.length === num ? (
           <CommonText color={colors.disabledText} fw='bold'>
             모집 완료
           </CommonText>
@@ -28,7 +28,7 @@ const StudyCard = ({ data }) => {
           <CommonText color={colors.primary} fw='bold'>
             모집 중
           </CommonText>
-        )} */}
+        )}
       </StTextGroup>
       <StBox>{title}</StBox>
       <StBox>{period}</StBox>
