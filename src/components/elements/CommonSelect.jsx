@@ -3,15 +3,18 @@ import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
 
 const CommonSelect = (props) => {
-  const { ariaLabel, width, height, name, value1, value2, value3, value4 } =
-    props;
+  const { ariaLabel, width, ht, name, values } = props;
+
+  // const objLen = Object.keys(rest).length;
+
   return (
-    <StSelect aria-label={ariaLabel} width={width} height={height}>
+    <StSelect aria-label={ariaLabel} width={width} ht={ht}>
       <option>{name}</option>
-      <option value={value1}>{value1}</option>
-      <option value={value2}>{value2}</option>
-      <option value={value3}>{value3}</option>
-      <option value={value4}>{value4}</option>
+      {values.map((value) => (
+        <option key={value} value={value}>
+          {value}
+        </option>
+      ))}
     </StSelect>
   );
 };
@@ -20,6 +23,6 @@ export default CommonSelect;
 
 const StSelect = styled(Form.Select)`
   width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  height: ${(props) => props.ht};
   margin: ${(props) => props.margin};
 `;

@@ -4,7 +4,18 @@ import Button from 'react-bootstrap/Button';
 import { colors } from '../../theme/theme';
 
 const CommonButton = (props) => {
-  const { onClick, type, bgcolor, text, disabled, fontcolor, width, height, bgchover } = props;
+  const {
+    onClick,
+    type,
+    bgcolor,
+    text,
+    disabled,
+    fontcolor,
+    width,
+    height,
+    bgchover,
+    fz,
+  } = props;
   return (
     <StBtn
       onClick={onClick}
@@ -15,6 +26,7 @@ const CommonButton = (props) => {
       width={width}
       height={height}
       bgchover={bgchover}
+      fz={fz}
     >
       {text}
     </StBtn>
@@ -30,8 +42,9 @@ const StBtn = styled(Button)`
   color: ${(props) => props.fontcolor};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+  font-size: ${(props) => props.fz};
   :hover {
-    background-color: ${(props) => props.bgchover}
+    background-color: ${(props) => props.bgchover};
   }
   :disabled {
     background-color: ${colors.disabled};

@@ -14,7 +14,7 @@ const Header = () => {
     <StHeader>
       <Layout>
         <StHeaderInner>
-          <Logo height='100%' />
+          <Logo height='100%' onClick={() => navigate('/')} />
           <StLoginGroup>
             <>
               {isLogin ? (
