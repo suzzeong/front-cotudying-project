@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const CommonTextarea = ({
-  controlId,
   rows,
   cols,
   label,
@@ -12,10 +12,9 @@ const CommonTextarea = ({
   placeholder,
 }) => {
   return (
-    <Form.Group controlId={controlId}>
-      <StLabel>{label}</StLabel>
+    <StLabel controlId='floatingTextarea2' label={label}>
       <StTextarea
-        as='textarea'
+        // as='textarea'
         rows={rows}
         wrap='hard'
         cols={cols}
@@ -23,17 +22,18 @@ const CommonTextarea = ({
         placeholder={placeholder}
         onChange={onChange}
       />
-    </Form.Group>
+    </StLabel>
   );
 };
 
 export default CommonTextarea;
 
-const StLabel = styled(Form.Label)`
-  font-size: ${(props) => props.fz};
+const StLabel = styled(FloatingLabel)`
+  font-size: 16px;
 `;
 
 const StTextarea = styled(Form.Control)`
+  border-radius: 8px;
   width: 100%;
   min-height: 250px;
   padding: 10px;
