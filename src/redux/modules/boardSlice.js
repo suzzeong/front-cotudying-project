@@ -10,7 +10,7 @@ const initialState = {
 // post
 export const _postCotudy = createAsyncThunk('POST_COTUDY', async (payload, thunkAPI) => {
   try {
-    const data = await axios.post('http://54.180.92.90/api/board', payload)
+    const data = await axios.post('http://localhost:3001/cotudy', payload)
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -20,7 +20,7 @@ export const _postCotudy = createAsyncThunk('POST_COTUDY', async (payload, thunk
 // get
 export const _getCotudy = createAsyncThunk('GET_COTUDY', async (payload, thunkAPI) => {
   try {
-    const data = await axios.get('http://54.180.92.90/api/board', payload)
+    const data = await axios.get('http://localhost:3001/cotudy', payload)
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -30,7 +30,7 @@ export const _getCotudy = createAsyncThunk('GET_COTUDY', async (payload, thunkAP
 // delete - 로그인 시 실행
 export const _deleteCotudy = createAsyncThunk('DELETE_COTUDY', async (payload, thunkAPI) => {
   try {
-    const data = await axios.delete('http://54.180.92.90/api/login', payload)
+    const data = await axios.delete('http://localhost:3001/cotudy/${payload}', payload)
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
