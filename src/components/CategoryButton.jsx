@@ -2,13 +2,9 @@ import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '../theme/theme';
 
-const CategoryButton = ({ src, onClick }) => {
-  const [isSelect, setIsSelect] = useState(false);
-
-  // const onClick = (e) => {
-  //   // console.log(e.target.alt);
-  //   setIsSelect(true);
-  // };
+const CategoryButton = ({ src, onClick, category, value }) => {
+  console.log('category!!!', category);
+  console.log('value!!!', value);
 
   return (
     <StIconContainer onClick={onClick}>
@@ -24,11 +20,11 @@ const StIconContainer = styled.div`
   height: 64px;
   border-radius: 50%;
 
-  ${(props) =>
+  /* ${(props) =>
     props.isSelect &&
     css`
       border: 4px solid ${colors.primary};
-    `}
+    `} */
 
   cursor: pointer;
 

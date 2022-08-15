@@ -3,16 +3,12 @@ import { colors } from '../theme/theme';
 import CommonText from '../components/elements/CommonText';
 import CommonButton from '../components/elements/CommonButton';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StudyCard = ({ data }) => {
-  const { category, title, content, period, user, num } = data;
+  const { id, category, title, content, period, user, num } = data;
   const [isFull, setIsFull] = useState(false);
-
-  // console.log('num', num, 'userlength', user.length);
-
-  // if (num === user.length) {
-  //   setIsFull(true);
-  // }
+  const navigate = useNavigate();
 
   return (
     <StCardContainer>
@@ -43,6 +39,7 @@ const StudyCard = ({ data }) => {
           text='상세보기'
           fontcolor={colors.black}
           bgcolor={colors.white}
+          onClick={() => navigate(`/detail/${data.id}`)}
         />
       </StButtonGroup>
     </StCardContainer>
@@ -53,6 +50,7 @@ export default StudyCard;
 
 const StCardContainer = styled.div`
   width: 100%;
+  max-width: 300px;
   padding: 26px;
   border-radius: 6px;
   background: ${colors.boxColor};

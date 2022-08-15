@@ -5,15 +5,32 @@ import StudyList from '../components/StudyList';
 import styled from 'styled-components';
 import CommonButton from '../components/elements/CommonButton';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { RESP } from '../response';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const [category, setCategory] = useState('all');
+
+  const resp = RESP.BOARD;
+  const data = resp.result;
+
+  const handleCategory = (e) => {
+    setCategory(e.target.alt);
+  };
+
+  const filteredData = () => {
+    return data.filter((item) => item.category === category);
+  };
+
+  // console.log(data);
+  // console.log(filteredData());
 
   return (
     <>
       <Header />
       <Layout>
-        <StNav />
+        <StNav category={category} onClick={handleCategory} />
         <StButton>
           <CommonButton
             text='모집하기'
@@ -21,7 +38,7 @@ const MainPage = () => {
             fz='20px'
           />
         </StButton>
-        <StStudyList />
+        <StStudyList data={category === 'all' ? data : filteredData()} />
       </Layout>
     </>
   );
