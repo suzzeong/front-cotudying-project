@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import { _postCotudy, _getCotudy } from '../redux/modules/boardSlice';
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
@@ -8,6 +10,7 @@ import CommonInput from './elements/CommonInput';
 import Logo from './Logo';
 
 const Login = () => {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     username: '',
@@ -25,7 +28,7 @@ const Login = () => {
 
   const handleSubmit = async (formValue) => {
     const { data } = await axios.post(
-      'http://13.209.21.230:8080/api/member/login',
+      'http://52.79.242.188/api/login',
       formValue
     );
   };
@@ -37,6 +40,16 @@ const Login = () => {
       handleCheck(false);
     }
   }, [formValue]);
+
+  // const onSubmitHandler = (e) => {
+  //   e.preventDefault();
+  //   if (formValue.username === '') {
+  //     return alert('작성자 이름을 입력해주세요');
+  //   } else if (formValue.password  === '') {
+  //     return alert('제목을 입력해주세요');
+  //   } 
+  //   dispatch(_postCotudy(formValue));
+  // };
 
   return (
     <LoginContainer
@@ -85,6 +98,7 @@ const Login = () => {
             // onClick={(e) => e.preventDefault()}
           />
           <CommonButton
+            type='button'
             onClick={() => {
               navigate('/signup');
             }}

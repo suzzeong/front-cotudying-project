@@ -84,11 +84,9 @@ const StudyForm = () => {
                 minDate={startDate}
               />
             </StDateBox>
-          </StMidFormBox>
-
-          <StMidFormBox>
             <CommonSelect
               ht='100%'
+              width='200px'
               name='배울 언어'
               value={category}
               onChange={(e) => {
@@ -103,6 +101,7 @@ const StudyForm = () => {
           <CommonTextarea
             rows='3'
             cols='30'
+            label='내용'
             placeholder='내용'
             value={content}
             onChange={(e) => {
@@ -110,16 +109,17 @@ const StudyForm = () => {
             }}
           />
         </StTextBlock>
+        <StButton>
+          <CommonButton
+            type='submit'
+            text='제출하기'
+            fz='20px'
+            width='150px'
+            disabled={isActive}
+          />
+        </StButton>
       </StFormContainer>
 
-      <StButton>
-        <CommonButton
-          text='제출하기'
-          fz='20px'
-          width='150px'
-          disabled={isActive}
-        />
-      </StButton>
     </StContainer>
   );
 };
@@ -131,7 +131,7 @@ const StContainer = styled.div`
   margin: 70px auto 0;
 `;
 
-const StFormContainer = styled.div`
+const StFormContainer = styled.form`
   width: 100%;
   padding: 30px;
   margin-top: 20px;
@@ -158,10 +158,10 @@ const StTopFormBox = styled.div`
 `;
 
 const StMidFormBox = styled.div`
+  display: flex;
   width: 100%;
-
-  /*
-  & + & {
+  
+  /* & + & {
     margin-left: 20px;
   } */
   &:nth-child(2) {
@@ -172,7 +172,7 @@ const StMidFormBox = styled.div`
 const StDateBox = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 80%;
 `;
 
 const StDateText = styled.span`
