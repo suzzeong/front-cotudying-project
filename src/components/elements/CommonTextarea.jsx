@@ -6,15 +6,14 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 const CommonTextarea = ({
   rows,
   cols,
-  label,
   value,
   onChange,
   placeholder,
 }) => {
   return (
-    <StLabel controlId='floatingTextarea2' label={label}>
+    <StLabel controlId='floatingTextarea2'>
       <StTextarea
-        // as='textarea'
+        as='textarea'
         rows={rows}
         wrap='hard'
         cols={cols}
@@ -36,6 +35,6 @@ const StTextarea = styled(Form.Control)`
   border-radius: 8px;
   width: 100%;
   min-height: 250px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ced4da;
 `;
