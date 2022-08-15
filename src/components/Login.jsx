@@ -13,30 +13,14 @@ const Login = () => {
     username: '',
     password: '',
   });
-  const [emailFormError, setEmailFormError] = useState(false);
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
+
+  const handleCheck = (e) => {
+    setIsActive(e);
+  };
 
   const handleChange = (e) => {
     setFormValue({ ...formValue, [e.target.name]: e.target.value });
-
-    // const emailRegex =
-    //   /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-
-    // if (e.target.name === 'username') {
-    //   if (!e.target.value || emailRegex.test(e.target.value)) {
-    //     setEmailFormError(true);
-    //     setIsActive(true);
-    //   } else {
-    //     setEmailFormError(false);
-    //     setIsActive(false);
-    //   }
-    // }
-
-    // if (formValue.email !== '' && formValue.password !== '') {
-    //   setIsActive(true);
-    // } else {
-    //   setIsActive(false);
-    // }
   };
 
   const handleSubmit = async (formValue) => {
@@ -44,16 +28,15 @@ const Login = () => {
       'http://13.209.21.230:8080/api/member/login',
       formValue
     );
-    console.log('???', data);
-
-    // if (formValue.email.trim() !== '' && formValue.password.trim() !== '') {
-    //   setIsActive(false);
-    // }
   };
 
   useEffect(() => {
-    setEmailFormError(true);
-  }, []);
+    if (formValue.username !== '' && formValue.password !== '') {
+      handleCheck(true);
+    } else {
+      handleCheck(false);
+    }
+  }, [formValue]);
 
   return (
     <LoginContainer
@@ -72,13 +55,10 @@ const Login = () => {
               value={formValue.username}
               name='username'
               onChange={handleChange}
-              label='Email'
-              placeholder='Email'
+              label='ID'
+              placeholder='ID'
               margin='0 0 40px 0'
             />
-            {!emailFormError ? (
-              <StMessage>이메일 형식에 맞춰서 입력해주세요</StMessage>
-            ) : null}
           </StInput>
 
           <StInput>

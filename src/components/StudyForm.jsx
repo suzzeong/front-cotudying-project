@@ -17,7 +17,7 @@ const StudyForm = () => {
   const [num, setNum] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
-  const handleActive = () => {
+  useEffect(() => {
     if (
       title !== '' &&
       startDate !== '' &&
@@ -30,9 +30,7 @@ const StudyForm = () => {
     } else {
       setIsActive(true);
     }
-  };
-
-  console.log(title, content, category, num, startDate, endDate);
+  }, [title, startDate, endDate, content, num, category]);
 
   return (
     <StContainer>
@@ -71,7 +69,6 @@ const StudyForm = () => {
                 endDate={endDate}
                 onChange={(date) => {
                   setStartDate(date);
-                  handleActive();
                 }}
                 minDate={new Date()}
               />
@@ -83,7 +80,6 @@ const StudyForm = () => {
                 endDate={endDate}
                 onChange={(date) => {
                   setEndDate(date);
-                  handleActive();
                 }}
                 minDate={startDate}
               />
@@ -97,7 +93,6 @@ const StudyForm = () => {
               value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
-                handleActive();
               }}
               values={['spring', 'java', 'react', 'js', 'python', 'c', 'etc']}
             />
@@ -112,7 +107,6 @@ const StudyForm = () => {
             value={content}
             onChange={(e) => {
               setContent(e.target.value);
-              handleActive();
             }}
           />
         </StTextBlock>
