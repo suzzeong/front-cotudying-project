@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
@@ -8,14 +9,14 @@ import Logo from './Logo';
 const Signup = () => {
   const [inputValue, setInputValue] = useState({
     userId: '',
-    email: '',
+    name: '',
     password: '',
     confirmPassword: '',
   });
 
   const [formError, setFormError] = useState({
     idError: false,
-    emailError: false,
+    nameError: false,
     passwordError: false,
     confirmPasswordError: false,
   });
@@ -23,9 +24,8 @@ const Signup = () => {
   const [idCheck, setIdCheck] = useState(false);
   const [isSameId, setIsSameId] = useState(false);
 
-  const { userId, email, password, confirmPassword } = inputValue;
-  const { idError, emailError, passwordError, confirmPasswordError } =
-    formError;
+  const { userId, name, password, confirmPassword } = inputValue;
+  const { idError, nameError, passwordError, confirmPasswordError } = formError;
   const [isActive, setIsActive] = useState(false);
 
   // userId 체크
@@ -34,9 +34,9 @@ const Signup = () => {
 
     if (!e.target.value || userIdRegex.test(e.target.value)) {
       setIdCheck(false);
-      setFormError({ ...formError, idError: true });
-    } else {
       setFormError({ ...formError, idError: false });
+    } else {
+      setFormError({ ...formError, idError: true });
     }
 
     setInputValue((prev) => {
@@ -47,21 +47,20 @@ const Signup = () => {
     });
   };
 
-  // email 체크
-  const handleChangeEmail = (e) => {
-    const emailRegex =
-      /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  // name 체크
+  const handleChangeName = (e) => {
+    const nameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
-    if (!e.target.value || emailRegex.test(e.target.value)) {
-      setFormError({ ...formError, emailError: true });
+    if (!e.target.value || nameRegex.test(e.target.value)) {
+      setFormError({ ...formError, nameError: false });
     } else {
-      setFormError({ ...formError, emailError: false });
+      setFormError({ ...formError, nameError: true });
     }
 
     setInputValue((prev) => {
       return {
         ...prev,
-        email: e.target.value,
+        name: e.target.value,
       };
     });
   };
@@ -71,9 +70,9 @@ const Signup = () => {
     const passwordRegex =
       /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{6,20}$/;
     if (!e.target.value || passwordRegex.test(e.target.value)) {
-      setFormError({ ...formError, passwordError: true });
-    } else {
       setFormError({ ...formError, passwordError: false });
+    } else {
+      setFormError({ ...formError, passwordError: true });
     }
 
     setInputValue((prev) => {
@@ -87,9 +86,9 @@ const Signup = () => {
   // password 확인 체크
   const handleChangeConfirmPassword = (e) => {
     if (password === e.target.value) {
-      setFormError({ ...formError, confirmPasswordError: true });
-    } else {
       setFormError({ ...formError, confirmPasswordError: false });
+    } else {
+      setFormError({ ...formError, confirmPasswordError: true });
     }
 
     setInputValue((prev) => {
@@ -100,29 +99,36 @@ const Signup = () => {
     });
   };
 
-  console.log(inputValue, formError);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(JSON.stringify(inputValue, null, 2));
+    // await axios.post('', inputValue);
   };
 
   const handleIdCheck = (e) => {
     e.preventDefault();
-    if (formError.idError && inputValue.userId !== '') {
+    if (!idError && inputValue.userId !== '') {
       setIdCheck(true);
     }
-    // setIsSameId(true);
   };
 
   useEffect(() => {
-    setFormError({
-      idError: true,
-      emailError: true,
-      passwordError: true,
-      confirmPasswordError: true,
-    });
-  }, []);
+    if (
+      name !== '' &&
+      userId !== '' &&
+      password !== '' &&
+      confirmPassword !== '' &&
+      !idError &&
+      !nameError &&
+      !passwordError &&
+      !confirmPasswordError &&
+      idCheck &&
+      !isSameId
+    ) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
+  }, [name, userId, password, confirmPassword, idCheck, isSameId]);
 
   return (
     <SignupContainer>
@@ -145,7 +151,7 @@ const Signup = () => {
               <CommonButton text='중복확인' onClick={handleIdCheck} />
             </StButtonContainer>
 
-            {!idError ? (
+            {idError ? (
               <StMessage>
                 2자 이상 16자 이하, 영어 또는 숫자 또는 한글
               </StMessage>
@@ -162,16 +168,18 @@ const Signup = () => {
           <StInput>
             <CommonInput
               type='text'
-              value={email}
-              name='email'
-              onChange={handleChangeEmail}
-              label='Email'
-              placeholder='Email'
+              value={name}
+              name='name'
+              onChange={handleChangeName}
+              label='nickname'
+              placeholder='nickname'
               margin='0 0 40px 0'
               maxLength='50'
             />
-            {!emailError ? (
-              <StMessage>이메일 형식에 맞춰서 입력해주세요</StMessage>
+            {nameError ? (
+              <StMessage>
+                2자 이상 16자 이하, 영어 또는 숫자 또는 한글
+              </StMessage>
             ) : null}
           </StInput>
 
@@ -186,7 +194,7 @@ const Signup = () => {
               margin='0 0 40px 0'
               maxLength='20'
             />
-            {!passwordError ? (
+            {passwordError ? (
               <StMessage>6자 이상 16자 이하, 영어와 숫자</StMessage>
             ) : null}
           </StInput>
@@ -202,7 +210,7 @@ const Signup = () => {
               margin='0 0 40px 0'
               maxLength='20'
             />
-            {!confirmPasswordError ? (
+            {confirmPasswordError ? (
               <StMessage>비밀번호가 일치하지 않습니다.</StMessage>
             ) : null}
           </StInput>
