@@ -103,7 +103,6 @@ const StudyForm = () => {
           <CommonTextarea
             rows='3'
             cols='30'
-            label='내용'
             placeholder='내용'
             value={content}
             onChange={(e) => {
