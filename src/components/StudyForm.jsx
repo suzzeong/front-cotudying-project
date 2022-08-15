@@ -17,6 +17,8 @@ const StudyForm = () => {
   const [num, setNum] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
+  console.log(startDate, endDate);
+
   useEffect(() => {
     if (
       title !== '' &&
@@ -119,7 +121,6 @@ const StudyForm = () => {
           />
         </StButton>
       </StFormContainer>
-
     </StContainer>
   );
 };
@@ -160,7 +161,7 @@ const StTopFormBox = styled.div`
 const StMidFormBox = styled.div`
   display: flex;
   width: 100%;
-  
+
   /* & + & {
     margin-left: 20px;
   } */
