@@ -8,10 +8,10 @@ import Logo from './Logo';
 
 const Signup = () => {
   const [inputValue, setInputValue] = useState({
-    userId: '',
-    name: '',
+    username: '',
+    nickname: '',
     password: '',
-    confirmPassword: '',
+    passwordConfirm: '',
   });
 
   const [formError, setFormError] = useState({
@@ -23,16 +23,16 @@ const Signup = () => {
 
   const [idCheck, setIdCheck] = useState(false);
   const [isSameId, setIsSameId] = useState(false);
-
-  const { userId, name, password, confirmPassword } = inputValue;
-  const { idError, nameError, passwordError, confirmPasswordError } = formError;
   const [isActive, setIsActive] = useState(false);
 
-  // userId 체크
-  const handleChangeUserId = (e) => {
-    const userIdRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,20}$/;
+  const { username, nickname, password, passwordConfirm } = inputValue;
+  const { idError, nameError, passwordError, confirmPasswordError } = formError;
 
-    if (!e.target.value || userIdRegex.test(e.target.value)) {
+  // username 체크
+  const handleChangeusername = (e) => {
+    const usernameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,20}$/;
+
+    if (!e.target.value || usernameRegex.test(e.target.value)) {
       setIdCheck(false);
       setFormError({ ...formError, idError: false });
     } else {
@@ -42,12 +42,12 @@ const Signup = () => {
     setInputValue((prev) => {
       return {
         ...prev,
-        userId: e.target.value,
+        username: e.target.value,
       };
     });
   };
 
-  // name 체크
+  // nickname 체크
   const handleChangeName = (e) => {
     const nameRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/;
 
@@ -60,7 +60,7 @@ const Signup = () => {
     setInputValue((prev) => {
       return {
         ...prev,
-        name: e.target.value,
+        nickname: e.target.value,
       };
     });
   };
@@ -94,29 +94,29 @@ const Signup = () => {
     setInputValue((prev) => {
       return {
         ...prev,
-        confirmPassword: e.target.value,
+        passwordConfirm: e.target.value,
       };
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await axios.post('', inputValue);
+    await axios.post('http://52.79.242.188/api/signup', inputValue);
   };
 
   const handleIdCheck = (e) => {
     e.preventDefault();
-    if (!idError && inputValue.userId !== '') {
+    if (!idError && inputValue.username !== '') {
       setIdCheck(true);
     }
   };
 
   useEffect(() => {
     if (
-      name !== '' &&
-      userId !== '' &&
+      nickname !== '' &&
+      username !== '' &&
       password !== '' &&
-      confirmPassword !== '' &&
+      passwordConfirm !== '' &&
       !idError &&
       !nameError &&
       !passwordError &&
@@ -128,7 +128,7 @@ const Signup = () => {
     } else {
       setIsActive(false);
     }
-  }, [name, userId, password, confirmPassword, idCheck, isSameId]);
+  }, [nickname, username, password, passwordConfirm, idCheck, isSameId]);
 
   return (
     <SignupContainer>
@@ -139,13 +139,13 @@ const Signup = () => {
           <StInput>
             <CommonInput
               type='text'
-              value={userId}
-              name='userId'
-              onChange={handleChangeUserId}
+              value={username}
+              name='username'
+              onChange={handleChangeusername}
               label='ID'
               placeholder='ID'
               margin='0 0 40px 0'
-              maxLength='20'
+              maxLength='16'
             />
             <StButtonContainer>
               <CommonButton text='중복확인' onClick={handleIdCheck} />
@@ -168,13 +168,13 @@ const Signup = () => {
           <StInput>
             <CommonInput
               type='text'
-              value={name}
-              name='name'
+              value={nickname}
+              name='nickname'
               onChange={handleChangeName}
               label='nickname'
               placeholder='nickname'
               margin='0 0 40px 0'
-              maxLength='50'
+              maxLength='16'
             />
             {nameError ? (
               <StMessage>
@@ -192,28 +192,28 @@ const Signup = () => {
               label='Password'
               placeholder='Password'
               margin='0 0 40px 0'
-              maxLength='20'
+              maxLength='16'
             />
             {passwordError ? (
               <StMessage>6자 이상 16자 이하, 영어와 숫자</StMessage>
             ) : null}
           </StInput>
 
-          <StInput>
+          {/* <StInput>
             <CommonInput
               type='password'
-              value={confirmPassword}
-              name='confirmPassword'
+              value={passwordConfirm}
+              name='passwordConfirm'
               onChange={handleChangeConfirmPassword}
               label='Confirm password'
               placeholder='Confirm password'
               margin='0 0 40px 0'
-              maxLength='20'
+              maxLength='16'
             />
             {confirmPasswordError ? (
               <StMessage>비밀번호가 일치하지 않습니다.</StMessage>
             ) : null}
-          </StInput>
+          </StInput> */}
         </StInputBox>
 
         <LoginButton>

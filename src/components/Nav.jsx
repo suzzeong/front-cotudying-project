@@ -24,11 +24,7 @@ const icons = [
   { icon: iconEtc, value: 'etc' },
 ];
 
-const Nav = ({ className }) => {
-  const [categoryName, setCategoryName] = useState('all');
-
-  console.log('categoryName', categoryName);
-
+const Nav = ({ className, category, onClick }) => {
   return (
     <>
       <StNav className={className}>
@@ -37,7 +33,9 @@ const Nav = ({ className }) => {
             <CategoryButton
               key={icon.icon}
               src={icon}
-              onClick={() => setCategoryName(icon.value)}
+              onClick={onClick}
+              category={category}
+              value={icon.value}
             />
           ))}
         </StNavList>

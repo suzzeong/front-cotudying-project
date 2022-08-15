@@ -1,5 +1,5 @@
-import Layout from "../layout/Layout";
-import Header from "../components/Header";
+import Layout from '../layout/Layout';
+import Header from '../components/Header';
 import StudyInfo from '../components/StudyInfo';
 
 const DetailPage = () => {
@@ -7,7 +7,7 @@ const DetailPage = () => {
     <>
       <Header />
       <Layout>
-        <StudyInfo/>
+        <StudyInfo />
       </Layout>
     </>
   );
