@@ -30,11 +30,7 @@ const StudyCard = ({ data }) => {
       <StBox>{period}</StBox>
       <StContentBox>{content}</StContentBox>
       <StButtonGroup>
-        {user.length === num ? (
-          <CommonButton text='모집완료' disabled={true} />
-        ) : (
-          <CommonButton text='참여하기' />
-        )}
+        <CommonButton text='참여하기' />
         <CommonButton
           text='상세보기'
           fontcolor={colors.black}

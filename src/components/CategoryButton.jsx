@@ -3,9 +3,6 @@ import styled, { css } from 'styled-components';
 import { colors } from '../theme/theme';
 
 const CategoryButton = ({ src, onClick, category, value }) => {
-  console.log('category!!!', category);
-  console.log('value!!!', value);
-
   return (
     <StIconContainer onClick={onClick}>
       <img src={src.icon} alt={src.value} />
