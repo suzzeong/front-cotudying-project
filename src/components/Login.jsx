@@ -2,11 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-<<<<<<< HEAD
 import { __loginUser } from '../redux/modules/userSlice';
-=======
-import { _postUserInfo, _getUserInfo } from '../redux/modules/userSlice';
->>>>>>> 974569b5d8501bcc7ea486851cdae7e0d9d09b13
+
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
@@ -31,11 +28,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-<<<<<<< HEAD
     dispatch(__loginUser(formValue));
-=======
-    dispatch(_postUserInfo(formValue));
->>>>>>> 974569b5d8501bcc7ea486851cdae7e0d9d09b13
   };
 
   useEffect(() => {

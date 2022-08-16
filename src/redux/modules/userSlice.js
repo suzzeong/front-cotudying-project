@@ -3,12 +3,8 @@ import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/Cookie';
 
 const initialState = {
-<<<<<<< HEAD
   list: [],
   login: false,
-=======
-  user: [],
->>>>>>> 974569b5d8501bcc7ea486851cdae7e0d9d09b13
   isLoading: false,
   error: null,
 };
