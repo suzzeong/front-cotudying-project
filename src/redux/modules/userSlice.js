@@ -39,12 +39,12 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'users',
   initialState,
-  reducer: {
-    // getUser: (state, action) => {
-    //   action.payload {}
-    // }
+  reducers: {
+    getUser: (state, action) => {
+      state.user.userToken = getCookie('ACCESS_TOKEN');
+    },
   },
   extraReducers: {
     [__loginUser.pending]: (state) => {
@@ -72,4 +72,5 @@ export const userSlice = createSlice({
   },
 });
 
+export const { getUser } = userSlice.actions;
 export default userSlice.reducer;
