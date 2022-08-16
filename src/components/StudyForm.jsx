@@ -17,7 +17,7 @@ const StudyForm = () => {
   const [num, setNum] = useState(0);
   const [isActive, setIsActive] = useState(true);
 
-  console.log(startDate, endDate);
+  // console.log(startDate, endDate);
 
   useEffect(() => {
     if (

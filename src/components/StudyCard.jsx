@@ -2,13 +2,30 @@ import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonText from '../components/elements/CommonText';
 import CommonButton from '../components/elements/CommonButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { _getCotudy } from '../redux/modules/boardSlice';
 
 const StudyCard = ({ data }) => {
   const { id, category, title, content, period, user, num } = data;
   const [isFull, setIsFull] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const {cotudy, isLoading, error} = useSelector((state) => state.cotudy)
+
+  useEffect(() => {
+    dispatch(_getCotudy());
+  }, [dispatch])
+
+  if(isLoading){
+    return <div>로딩중 ...</div>
+  }
+  if(error){
+    return <div>{error.message}</div>
+  }
+  console.log(data.id)
 
   return (
     <StCardContainer>

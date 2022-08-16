@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  users: [],
-  cotudy:[],
+  user: [],
   isLoading: false,
   error: null,
 };
@@ -27,7 +26,7 @@ export const _getUserInfo = createAsyncThunk('user/getUserInfo', async(payload, 
 
 
 export const userSlice = createSlice({
-  name: 'users',
+  name: 'user',
   initialState,
   reducer: {},
   extraReducers: {
