@@ -5,56 +5,49 @@ import CommonButton from '../components/elements/CommonButton';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { _getCotudy } from '../redux/modules/boardSlice';
+import { __getCotudy } from '../redux/modules/boardSlice';
 
 const StudyCard = ({ data }) => {
-  const { id, category, title, content, period, user, num } = data;
+  const { id, category, title, content, startDate, endDate, user, num } = data;
   const [isFull, setIsFull] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const dateStart=startDate.substr(0, 10);
+  const dateEnd=endDate.substr(0, 10);
 
-  const {cotudy, isLoading, error} = useSelector((state) => state.cotudy)
-
-  useEffect(() => {
-    dispatch(_getCotudy());
-  }, [dispatch])
-
-  if(isLoading){
-    return <div>로딩중 ...</div>
-  }
-  if(error){
-    return <div>{error.message}</div>
-  }
-  console.log(data.id)
+  // console.log(data.id)
+  // console.log(user.length)
+  // console.log(data.title)
 
   return (
     <StCardContainer>
-      <StTextGroup>
-        <CommonText fs='20px' fw='bold'>
-          {category}
-        </CommonText>
-        {user.length === num ? (
-          <CommonText color={colors.disabledText} fw='bold'>
-            모집 완료
+        <StTextGroup>
+          <CommonText fs='20px' fw='bold'>
+            {category}
           </CommonText>
-        ) : (
-          <CommonText color={colors.primary} fw='bold'>
-            모집 중
-          </CommonText>
-        )}
-      </StTextGroup>
-      <StBox>{title}</StBox>
-      <StBox>{period}</StBox>
-      <StContentBox>{content}</StContentBox>
-      <StButtonGroup>
-        <CommonButton text='참여하기' />
-        <CommonButton
-          text='상세보기'
-          fontcolor={colors.black}
-          bgcolor={colors.white}
-          onClick={() => navigate(`/detail/${data.id}`)}
-        />
-      </StButtonGroup>
+          {/* {user.length === num ? (
+            <CommonText color={colors.disabledText} fw='bold'>
+              모집 완료
+            </CommonText>
+          ) : (
+            <CommonText color={colors.primary} fw='bold'>
+              모집 중
+            </CommonText>
+          )} */}
+        </StTextGroup>
+        <StBox>{title}</StBox>
+        <StBox>{dateStart}~{dateEnd}</StBox>
+        <StContentBox>{content}</StContentBox>
+        <StButtonGroup>
+          <CommonButton text='참여하기' />
+          {/* 로그인x -> 모든 버튼 참여하기로, 클릭시 로그인창 */}
+          <CommonButton
+            text='상세보기'
+            fontcolor={colors.black}
+            bgcolor={colors.white}
+            onClick={() => navigate(`/detail/${data.id}`)}
+          />
+        </StButtonGroup>
     </StCardContainer>
   );
 };
@@ -91,6 +84,12 @@ const StContentBox = styled.div`
   height: 120px;
   padding: 10px;
   border-radius: 6px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 `;
 const StButtonGroup = styled.div`
   display: flex;

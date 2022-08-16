@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import StudyCard from './StudyCard';
-import { _getCotudy } from '../redux/modules/boardSlice';
+import { __getCotudy } from '../redux/modules/boardSlice';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,7 +9,7 @@ const StudyList = ({ className, data }) => {
   const {cotudy, isLoading, error} = useSelector((state) => state.cotudy.cotudy)
 
   useEffect(() => {
-    dispatch(_getCotudy());
+    dispatch(__getCotudy());
   }, [dispatch])
 
   if(isLoading){
@@ -23,7 +23,7 @@ const StudyList = ({ className, data }) => {
     <StEmpty>모집 중인 스터디가 없습니다.</StEmpty>
   ) : (
     <StListContainer className={className}>
-      {data.map((item) => (
+      {data?.map((item) => (
         <StudyCard key={item.id} data={item} />
       ))}
     </StListContainer>

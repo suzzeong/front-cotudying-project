@@ -1,14 +1,40 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import js from '../assets/img/icon-js.png';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import CommonText from './elements/CommonText';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { __deleteCotudy, __getCotudy } from '../redux/modules/boardSlice';
 
 const StudyInfo = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isIng, setIsIng] = useState(true);
   const [disabled, setDisabled] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.cotudy.cotudy);
+  const { id, category, title, content, startDate, endDate, user, num } = data;
+  const param = useParams();
+  const datas = data.find((data) => data.id === parseInt(param.id));
+  console.log(datas)
+  // console.log(datas.startDate)
+
+  const dateStart = datas.startDate.substr(0, 10);
+  const dateEnd = datas.endDate.substr(0, 10);
+
+  useEffect(() => {
+    dispatch(__getCotudy());
+  }, [dispatch]);
+
+  const onClickDeleteBtnHandler = (e) => {
+    // e.stopPropagation();
+    // window.confirm("삭제하시겠습니까?")
+    dispatch(__deleteCotudy(param.id));
+    navigate('/');
+  };
 
   return (
     <StInfo>
@@ -18,11 +44,11 @@ const StudyInfo = () => {
             <img src={js} alt='아이콘' />
           </StIcon>
           <React.Fragment>
-            {isIng ? (
-              <CommonText fs='30px'>모집 중</CommonText>
-            ) : (
+            {/* {datas.user.length === datas.num ? (
               <CommonText fs='30px'>모집완료</CommonText>
-            )}
+            ) : ( */}
+            <CommonText fs='30px'>모집중</CommonText>
+            {/* )} */}
           </React.Fragment>
         </InfoLanguage>
         <StButton>
@@ -33,7 +59,7 @@ const StudyInfo = () => {
                   bgcolor={colors.danger}
                   fontcolor={colors.white}
                   text='삭제'
-                  bgchover={colors.danger}
+                  bgchover={colors.dangerhover}
                 />
               </React.Fragment>
             ) : (
@@ -44,40 +70,42 @@ const StudyInfo = () => {
                   fontcolor={colors.white}
                   text={disabled ? '참여완료' : '참여하기'}
                   disabled={disabled}
+                  // disabled={datas.user.length === datas.num ? 'disabled' : ''}
                 />
               </>
             )}
           </React.Fragment>
+          <CommonButton
+            bgcolor={colors.danger}
+            fontcolor={colors.white}
+            bgchover={colors.dangerhover}
+            text='삭제하기'
+            onClick={onClickDeleteBtnHandler}
+            margin='0 0 0 10px'
+          ></CommonButton>
+          <CommonButton
+            bgcolor={colors.primary}
+            fontcolor={colors.white}
+            text='이전으로'
+            onClick={() => {
+              navigate(-1);
+            }}
+            margin='0 0 0 10px'
+          />
         </StButton>
       </InfoHeader>
       <InfoContainer>
         <InfoFlex>
-          <Infotitle>자바스크립트 기초반 모집</Infotitle>
-          <Infonum>3/4</Infonum>
+          <Infotitle>{datas.title}</Infotitle>
+          <Infonum>
+            {datas.user.length}/{datas.num}
+          </Infonum>
         </InfoFlex>
-        <Infocontent>2022.08.09~2022.09.09</Infocontent>
         <Infocontent>
-          [개발 스터디 모집 내용 예시] <br />
-          스터디 주제 <br />
-          1. javascript info(공식문서) or deepdive <br />
-          2. javascript 코딩테스트
-          <br />
-          <br />
-          스터디 목표
-          <br />
-          <br />
-          빠른 취뽀
-          <br />
-          <br />
-          예상 스터디 일정(횟수)
-          <br />
-          <br />
-          주6일
-          <br />
-          <br />
-          예상 커리큘럼 간략히
-          <br />
+          {/* {datas.startDate} ~ {datas.endDate} */}
+          {dateStart} ~ {dateEnd}
         </Infocontent>
+        <Infocontent>{datas.content}</Infocontent>
       </InfoContainer>
     </StInfo>
   );
@@ -108,6 +136,7 @@ const StIcon = styled.div`
 const StButton = styled.div`
   display: flex;
   align-items: center;
+  margin-left: 0px;
 `;
 
 const InfoContainer = styled.div`

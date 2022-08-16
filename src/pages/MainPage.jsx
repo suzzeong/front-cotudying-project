@@ -7,8 +7,7 @@ import CommonButton from '../components/elements/CommonButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { _getCotudy } from '../redux/modules/boardSlice';
-import { RESP } from '../response';
+import { __getCotudy } from '../redux/modules/boardSlice';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    dispatch(_getCotudy());
+    dispatch(__getCotudy());
   }, [dispatch]);
 
   // console.log(data);
@@ -45,7 +44,7 @@ const MainPage = () => {
             fz='20px'
           />
         </StButton>
-        <StStudyList data={category === 'all' ? data : filteredData()} />
+        {data ? (<StStudyList data={category === 'all' ? data : filteredData()} />) : (null)}
       </Layout>
     </>
   );

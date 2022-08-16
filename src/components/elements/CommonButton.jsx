@@ -15,6 +15,7 @@ const CommonButton = (props) => {
     height,
     bgchover,
     fz,
+    margin,
   } = props;
   return (
     <StBtn
@@ -27,6 +28,7 @@ const CommonButton = (props) => {
       height={height}
       bgchover={bgchover}
       fz={fz}
+      margin={margin}
     >
       {text}
     </StBtn>
@@ -43,6 +45,7 @@ const StBtn = styled(Button)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   font-size: ${(props) => props.fz};
+  margin: ${(props) => props.margin};
   :hover {
     background-color: ${(props) => props.bgchover};
   }
