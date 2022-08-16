@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cotudy from '../modules/cotudySlice'
+import { boardSlice } from '../modules/boardSlice';
+import { userSlice } from '../modules/userSlice';
 
 export const store = configureStore({
   reducer: {
-    cotudy
-  }
-})
+    cotudy: boardSlice,
+    users: userSlice,
+  },
+});

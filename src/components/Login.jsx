@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-// import { _postCotudy, _getCotudy } from '../redux/modules/boardSlice';
+import { useDispatch } from 'react-redux';
+import { __loginUser } from '../redux/modules/userSlice';
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
@@ -10,7 +10,7 @@ import CommonInput from './elements/CommonInput';
 import Logo from './Logo';
 
 const Login = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formValue, setFormValue] = useState({
     username: '',
@@ -27,10 +27,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    const { data } = await axios.post(
-      'http://52.79.242.188/api/login',
-      formValue
-    );
+    dispatch(__loginUser(formValue));
   };
 
   useEffect(() => {
