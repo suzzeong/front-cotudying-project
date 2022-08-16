@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Layout from '../layout/Layout';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import Logo from './Logo';
+import { getCookie, removeCookie } from '../shared/Cookie';
+import jwt from 'jwt-decode';
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState('');
+
   const navigate = useNavigate();
+
+  const hanedleLogout = () => {
+    removeCookie('ACCESS_TOKEN');
+    alert('로그아웃');
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    const token = getCookie('ACCESS_TOKEN');
+    if (token) setUser(jwt(token));
+  }, []);
+
+  console.log(user);
 
   return (
     <StHeader>
@@ -17,10 +34,10 @@ const Header = () => {
           <Logo height='100%' />
           <StLoginGroup>
             <>
-              {isLogin ? (
+              {user ? (
                 <StUser>
                   <StLoginText>
-                    <StName>홍길동</StName>님 환영합니다.
+                    <StName>{user.sub}</StName>님 환영합니다.
                   </StLoginText>
                   <StButton>
                     <CommonButton
@@ -29,6 +46,7 @@ const Header = () => {
                       text='로그아웃'
                       width='100px'
                       height='36px'
+                      onClick={hanedleLogout}
                     />
                   </StButton>
                 </StUser>

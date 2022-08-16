@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    dispatch(__loginUser(formValue));
+    dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Login = () => {
   //   } else if (formValue.password  === '') {
   //     return alert('제목을 입력해주세요');
   //   }
-  //   dispatch(__postCotudy(formValue));
+  //   dispatch(_postCotudy(formValue));
   // };
 
   return (

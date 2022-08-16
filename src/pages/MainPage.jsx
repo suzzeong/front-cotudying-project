@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { __getCotudy } from '../redux/modules/boardSlice';
+import { getCookie } from '../shared/Cookie';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -24,6 +25,17 @@ const MainPage = () => {
     return data.filter((item) => item.category === category);
   };
 
+  const handleCreate = () => {
+    if (getCookie('ACCESS_TOKEN')) {
+      navigate('/create');
+    } else {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/login');
+    }
+
+    // navigate('/create');
+  };
+
   useEffect(() => {
     dispatch(__getCotudy());
   }, [dispatch]);
@@ -38,13 +50,9 @@ const MainPage = () => {
       <Layout>
         <StNav category={category} onClick={handleCategory} />
         <StButton>
-          <CommonButton
-            text='모집하기'
-            onClick={() => navigate('/create')}
-            fz='20px'
-          />
+          <CommonButton text='모집하기' onClick={handleCreate} fz='20px' />
         </StButton>
-        {data ? (<StStudyList data={category === 'all' ? data : filteredData()} />) : (null)}
+        <StStudyList data={category === 'all' ? data : filteredData()} />
       </Layout>
     </>
   );
