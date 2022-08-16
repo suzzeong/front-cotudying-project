@@ -8,34 +8,46 @@ const initialState = {
 };
 
 // post
-export const _postCotudy = createAsyncThunk('POST_COTUDY', async (payload, thunkAPI) => {
-  try {
-    const data = await axios.post('http://localhost:3001/cotudy', payload)
-    return thunkAPI.fulfillWithValue(data.data);
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+export const _postCotudy = createAsyncThunk(
+  'POST_COTUDY',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post('http://localhost:3001/cotudy', payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 // get
-export const _getCotudy = createAsyncThunk('GET_COTUDY', async (payload, thunkAPI) => {
-  try {
-    const data = await axios.get('http://localhost:3001/cotudy', payload)
-    return thunkAPI.fulfillWithValue(data.data);
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+export const _getCotudy = createAsyncThunk(
+  'GET_COTUDY',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get('http://localhost:3001/cotudy');
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 // delete - 로그인 시 실행
-export const _deleteCotudy = createAsyncThunk('DELETE_COTUDY', async (payload, thunkAPI) => {
-  try {
-    const data = await axios.delete('http://localhost:3001/cotudy/${payload}', payload)
-    return thunkAPI.fulfillWithValue(data.data);
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+export const _deleteCotudy = createAsyncThunk(
+  'DELETE_COTUDY',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.delete(
+        'http://localhost:3001/cotudy/${payload}',
+        payload
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
-});
+);
 
 export const boardSlice = createSlice({
   name: 'cotudy',
@@ -78,9 +90,8 @@ export const boardSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+  },
+});
 
-  }
-})
-
-export const { } = boardSlice.actions;
+export const {} = boardSlice.actions;
 export default boardSlice.reducer;
