@@ -23,7 +23,7 @@ const StudyList = ({ className, data }) => {
     <StEmpty>모집 중인 스터디가 없습니다.</StEmpty>
   ) : (
     <StListContainer className={className}>
-      {data?.map((item) => (
+      {Object.keys(data).length !== 0 && data.map((item) => (
         <StudyCard key={item.id} data={item} />
       ))}
     </StListContainer>

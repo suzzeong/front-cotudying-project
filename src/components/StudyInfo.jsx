@@ -32,9 +32,10 @@ const StudyInfo = () => {
   const onClickDeleteBtnHandler = (e) => {
     // e.stopPropagation();
     // window.confirm("삭제하시겠습니까?")
-    dispatch(__deleteCotudy(param.id));
+    dispatch(__deleteCotudy(datas.id));
     navigate('/');
   };
+  // console.log(datas)
 
   return (
     <StInfo>
@@ -55,12 +56,14 @@ const StudyInfo = () => {
           <React.Fragment>
             {isLogin ? (
               <React.Fragment>
-                <CommonButton
+                {/* <CommonButton
                   bgcolor={colors.danger}
                   fontcolor={colors.white}
-                  text='삭제'
                   bgchover={colors.dangerhover}
-                />
+                  text='삭제하기'
+                  onClick={onClickDeleteBtnHandler}
+                  margin='0 0 0 10px'
+                /> */}
               </React.Fragment>
             ) : (
               <>
@@ -82,7 +85,8 @@ const StudyInfo = () => {
             text='삭제하기'
             onClick={onClickDeleteBtnHandler}
             margin='0 0 0 10px'
-          ></CommonButton>
+          >
+          </CommonButton>
           <CommonButton
             bgcolor={colors.primary}
             fontcolor={colors.white}
