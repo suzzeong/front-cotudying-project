@@ -4,26 +4,31 @@ import Nav from '../components/Nav';
 import StudyList from '../components/StudyList';
 import styled from 'styled-components';
 import CommonButton from '../components/elements/CommonButton';
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { _getCotudy } from '../redux/modules/boardSlice';
 import { RESP } from '../response';
 
 const MainPage = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState('all');
+  const dispatch = useDispatch()
 
-  const resp = RESP.BOARD;
-  const data = resp.result;
+  // const resp = RESP.BOARD;
+  const data = useSelector((state) => state.cotudy.cotudy)
 
+  
   const handleCategory = (e) => {
     setCategory(e.target.alt);
   };
-
+  
   const filteredData = () => {
     return data.filter((item) => item.category === category);
   };
 
-  // console.log(data);
+  console.log(data);
+  console.log(category)
   // console.log(filteredData());
 
   return (
