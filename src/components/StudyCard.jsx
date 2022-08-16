@@ -39,7 +39,9 @@ const StudyCard = ({ data }) => {
       <StBox>
         {dateStart}~{dateEnd}
       </StBox>
-      <StContentBox>{`${content.substr(0, 70)}...`}</StContentBox>
+      <StContentBox>
+        {content.length < 70 ? content : `${content.substr(0, 70)}...`}
+      </StContentBox>
       <StButtonGroup>
         <CommonButton text='참여하기' />
         {/* 로그인x -> 모든 버튼 참여하기로, 클릭시 로그인창 */}
@@ -83,6 +85,8 @@ const StBox = styled.div`
 const StContentBox = styled.div`
   background-color: ${colors.white};
   margin: 10px 0 30px;
+  overflow: hidden;
+  word-wrap: break-word;
   height: 120px;
   padding: 10px;
   border-radius: 6px;
