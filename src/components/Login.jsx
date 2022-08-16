@@ -39,6 +39,16 @@ const Login = () => {
     }
   }, [formValue]);
 
+  // const onSubmitHandler = (e) => {
+  //   e.preventDefault();
+  //   if (formValue.username === '') {
+  //     return alert('작성자 이름을 입력해주세요');
+  //   } else if (formValue.password  === '') {
+  //     return alert('제목을 입력해주세요');
+  //   }
+  //   dispatch(_postCotudy(formValue));
+  // };
+
   return (
     <LoginContainer
       onSubmit={(e) => {

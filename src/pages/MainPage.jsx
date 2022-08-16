@@ -7,7 +7,7 @@ import CommonButton from '../components/elements/CommonButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { _getCotudy } from '../redux/modules/boardSlice';
+import { __getCotudy } from '../redux/modules/boardSlice';
 import { getCookie } from '../shared/Cookie';
 
 const MainPage = () => {
@@ -37,7 +37,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    dispatch(_getCotudy());
+    dispatch(__getCotudy());
   }, [dispatch]);
 
   // console.log(data);

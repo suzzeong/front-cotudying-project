@@ -8,7 +8,7 @@ const initialState = {
 };
 
 // post
-export const _postCotudy = createAsyncThunk(
+export const __postCotudy = createAsyncThunk(
   'POST_COTUDY',
   async (payload, thunkAPI) => {
     try {
@@ -21,7 +21,7 @@ export const _postCotudy = createAsyncThunk(
 );
 
 // get
-export const _getCotudy = createAsyncThunk(
+export const __getCotudy = createAsyncThunk(
   'GET_COTUDY',
   async (payload, thunkAPI) => {
     try {
@@ -34,14 +34,15 @@ export const _getCotudy = createAsyncThunk(
 );
 
 // delete - 로그인 시 실행
-export const _deleteCotudy = createAsyncThunk(
+export const __deleteCotudy = createAsyncThunk(
   'DELETE_COTUDY',
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        'http://localhost:3001/cotudy/${payload}',
+        `http://localhost:3001/cotudy/${payload}`,
         payload
       );
+      // thunkAPI.dispatch(__getCotudy());
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -55,38 +56,38 @@ export const boardSlice = createSlice({
   reducers: {},
   extraReducers: {
     // post
-    [_postCotudy.pending]: (state) => {
+    [__postCotudy.pending]: (state) => {
       state.isLoading = true;
     },
-    [_postCotudy.fulfilled]: (state, action) => {
+    [__postCotudy.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.cotudy.push(action.payload);
     },
-    [_postCotudy.rejected]: (state, action) => {
+    [__postCotudy.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
     // get
-    [_getCotudy.pending]: (state) => {
+    [__getCotudy.pending]: (state) => {
       state.isLoading = true;
     },
-    [_getCotudy.fulfilled]: (state, action) => {
+    [__getCotudy.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.cotudy = action.payload;
     },
-    [_getCotudy.rejected]: (state, action) => {
+    [__getCotudy.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
     //delete - 로그인 시 실행
-    [_deleteCotudy.pending]: (state) => {
+    [__deleteCotudy.pending]: (state) => {
       state.isLoading = true;
     },
-    [_deleteCotudy.fulfilled]: (state, action) => {
+    [__deleteCotudy.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.cotudy = action.payload;
     },
-    [_deleteCotudy.rejected]: (state, action) => {
+    [__deleteCotudy.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
