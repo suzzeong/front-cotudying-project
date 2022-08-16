@@ -4,8 +4,6 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import { store } from './redux/config/configStore';
 import { Provider } from 'react-redux';
-import axios from 'axios';
-axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

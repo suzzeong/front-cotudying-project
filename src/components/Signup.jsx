@@ -1,12 +1,16 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { __signupUser } from '../redux/modules/userSlice';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import CommonInput from './elements/CommonInput';
 import Logo from './Logo';
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
   const [inputValue, setInputValue] = useState({
     username: '',
     nickname: '',
@@ -101,7 +105,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://52.79.242.188/api/signup', inputValue);
+    dispatch(__signupUser(inputValue));
   };
 
   const handleIdCheck = (e) => {
@@ -116,7 +120,7 @@ const Signup = () => {
       nickname !== '' &&
       username !== '' &&
       password !== '' &&
-      passwordConfirm !== '' &&
+      // passwordConfirm !== '' &&
       !idError &&
       !nameError &&
       !passwordError &&
