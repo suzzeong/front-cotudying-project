@@ -46,7 +46,7 @@ const Login = () => {
   //   } else if (formValue.password  === '') {
   //     return alert('제목을 입력해주세요');
   //   }
-  //   dispatch(_postCotudy(formValue));
+  //   dispatch(__postCotudy(formValue));
   // };
 
   return (

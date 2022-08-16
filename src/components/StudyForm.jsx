@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { colors } from '../theme/theme';
 import CommonSelect from './elements/CommonSelect';
 import CommonInput from './elements/CommonInput';
@@ -7,17 +9,34 @@ import CommonDatePicker from './elements/CommonDatePicker';
 import CommonTextarea from './elements/CommonTextarea';
 import CommonButton from './elements/CommonButton';
 import CommonText from './elements/CommonText';
+import { __postCotudy } from '../redux/modules/boardSlice';
 
 const StudyForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [title, setTitle] = useState('');
+  const [num, setNum] = useState(0);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const [category, setCategory] = useState('');
-  const [num, setNum] = useState(0);
+  const [content, setContent] = useState('');
+  const [user, setUser] = useState([]);
   const [isActive, setIsActive] = useState(true);
 
+  const cotudying = {
+    title: title,
+    num: num,
+    startDate: startDate,
+    endDate: endDate,
+    category: category,
+    content: content,
+    user: user
+  }
+  
+
   // console.log(startDate, endDate);
+  // const { id, category, title, content, startDate, endDate, user, num } = data;
 
   useEffect(() => {
     if (
@@ -27,17 +46,24 @@ const StudyForm = () => {
       content !== '' &&
       category !== '' &&
       num !== ''
-    ) {
-      setIsActive(false);
-    } else {
-      setIsActive(true);
+      ) {
+        setIsActive(false);
+      } else {
+        setIsActive(true);
+      }
+    }, [title, startDate, endDate, content, num, category]);
+    
+    const onSubmithandler = (e) => {
+      e.preventDefault();
+      dispatch(__postCotudy(cotudying))
+      navigate(-1);
     }
-  }, [title, startDate, endDate, content, num, category]);
+  // console.log(title)
 
   return (
     <StContainer>
       <CommonText fs='30px'>스터디 모집하기</CommonText>
-      <StFormContainer>
+      <StFormContainer onSubmit={onSubmithandler}>
         <StBlock>
           <StTopFormBox>
             <CommonInput
