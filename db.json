@@ -1,5 +1,16 @@
 {
-  "cotudy": [],
+  "cotudy": [
+    {
+      "title": "2222222222222",
+      "num": "2",
+      "startDate": "2022-08-23T15:00:00.000Z",
+      "endDate": "2022-08-29T15:00:00.000Z",
+      "category": "spring",
+      "content": "22222222222222",
+      "user": [],
+      "id": 1
+    }
+  ],
   "user": [
     {
       "token": "eyJ0eXAi...",

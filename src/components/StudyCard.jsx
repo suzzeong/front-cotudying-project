@@ -15,7 +15,7 @@ const StudyCard = ({ data }) => {
   const dateStart=startDate.substr(0, 10);
   const dateEnd=endDate.substr(0, 10);
 
-  // console.log(data.id)
+  console.log(data.id)
   // console.log(user.length)
   // console.log(data.title)
 

@@ -16,7 +16,7 @@ const StudyForm = () => {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
-  const [num, setNum] = useState(0);
+  const [num, setNum] = useState(1);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [category, setCategory] = useState('');
