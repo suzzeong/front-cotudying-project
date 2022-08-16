@@ -31,9 +31,8 @@ const StudyForm = () => {
     endDate: endDate,
     category: category,
     content: content,
-    user: user
-  }
-  
+    user: user,
+  };
 
   // console.log(startDate, endDate);
   // const { id, category, title, content, startDate, endDate, user, num } = data;
@@ -46,18 +45,18 @@ const StudyForm = () => {
       content !== '' &&
       category !== '' &&
       num !== ''
-      ) {
-        setIsActive(false);
-      } else {
-        setIsActive(true);
-      }
-    }, [title, startDate, endDate, content, num, category]);
-    
-    const onSubmithandler = (e) => {
-      e.preventDefault();
-      dispatch(__postCotudy(cotudying))
-      navigate(-1);
+    ) {
+      setIsActive(false);
+    } else {
+      setIsActive(true);
     }
+  }, [title, startDate, endDate, content, num, category]);
+
+  const onSubmithandler = (e) => {
+    e.preventDefault();
+    dispatch(__postCotudy(cotudying));
+    navigate(-1);
+  };
   // console.log(title)
 
   return (
@@ -78,7 +77,7 @@ const StudyForm = () => {
               ht='100%'
               name='모집 인원'
               value={num}
-              values={[1, 2, 3, 4]}
+              values={[2, 3, 4]}
               onChange={(e) => {
                 setNum(e.target.value);
               }}
@@ -127,10 +126,11 @@ const StudyForm = () => {
 
         <StTextBlock>
           <CommonTextarea
-            rows='3'
-            cols='30'
             placeholder='내용'
             value={content}
+            cols='200'
+            width='100%'
+            height='250px'
             onChange={(e) => {
               setContent(e.target.value);
             }}

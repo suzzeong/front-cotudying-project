@@ -15,11 +15,11 @@ const StudyInfo = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const param = useParams();
   const data = useSelector((state) => state.cotudy.cotudy);
   const { id, category, title, content, startDate, endDate, user, num } = data;
-  const param = useParams();
   const datas = data.find((data) => data.id === parseInt(param.id));
-  console.log(datas)
+
   // console.log(datas.startDate)
 
   const dateStart = datas.startDate.substr(0, 10);
@@ -30,8 +30,6 @@ const StudyInfo = () => {
   }, [dispatch]);
 
   const onClickDeleteBtnHandler = (e) => {
-    // e.stopPropagation();
-    // window.confirm("삭제하시겠습니까?")
     dispatch(__deleteCotudy(datas.id));
     navigate('/');
   };
@@ -85,8 +83,7 @@ const StudyInfo = () => {
             text='삭제하기'
             onClick={onClickDeleteBtnHandler}
             margin='0 0 0 10px'
-          >
-          </CommonButton>
+          ></CommonButton>
           <CommonButton
             bgcolor={colors.primary}
             fontcolor={colors.white}
@@ -109,7 +106,16 @@ const StudyInfo = () => {
           {/* {datas.startDate} ~ {datas.endDate} */}
           {dateStart} ~ {dateEnd}
         </Infocontent>
-        <Infocontent>{datas.content}</Infocontent>
+        <Infocontent>
+          {datas.content.split('\n').map((line) => {
+            return (
+              <>
+                {line}
+                <br />
+              </>
+            );
+          })}
+        </Infocontent>
       </InfoContainer>
     </StInfo>
   );

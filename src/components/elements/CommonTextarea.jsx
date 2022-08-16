@@ -9,11 +9,15 @@ const CommonTextarea = ({
   value,
   onChange,
   placeholder,
+  width,
+  height,
 }) => {
   return (
     <StLabel controlId='floatingTextarea2'>
       <StTextarea
         as='textarea'
+        width={width}
+        height={height}
         rows={rows}
         wrap='hard'
         cols={cols}

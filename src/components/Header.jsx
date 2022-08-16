@@ -25,8 +25,6 @@ const Header = () => {
     if (token) setUser(jwt(token));
   }, []);
 
-  console.log(user);
-
   return (
     <StHeader>
       <Layout>
