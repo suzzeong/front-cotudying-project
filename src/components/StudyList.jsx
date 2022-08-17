@@ -6,22 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const StudyList = ({ className, data }) => {
   const dispatch = useDispatch();
-  const { cotudy, isLoading, error } = useSelector(
-    (state) => state.cotudy.cotudy
-  );
+  const { isLoading, error } = useSelector((state) => state.cotudy.cotudy);
 
   useEffect(() => {
     dispatch(__getCotudy());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div>로딩중 ...</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-
   console.log(data);
+
+  // if (isLoading) {
+  //   return <div>로딩중 ...</div>;
+  // }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
+
   return data.length === 0 ? (
     <StEmpty>모집 중인 스터디가 없습니다.</StEmpty>
   ) : (

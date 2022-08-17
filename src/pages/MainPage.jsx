@@ -7,14 +7,13 @@ import CommonButton from '../components/elements/CommonButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { __getCotudy } from '../redux/modules/boardSlice';
+import { __getCotudy, __getDetail } from '../redux/modules/boardSlice';
 import { getCookie } from '../shared/Cookie';
 
 const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [category, setCategory] = useState('all');
-  const [select, setSelect] = useState(false);
 
   const data = useSelector((state) => state.cotudy.cotudy);
 
@@ -35,15 +34,11 @@ const MainPage = () => {
     }
   };
 
-  useEffect(() => {
-    // dispatch(__getCotudy());
-  }, [dispatch]);
-
   return (
     <>
       <Header />
       <Layout>
-        <StNav category={category} onClick={handleCategory} isSelect={select} />
+        <StNav category={category} onClick={handleCategory} />
         <StButton>
           <CommonButton text='모집하기' onClick={handleCreate} fz='20px' />
         </StButton>
