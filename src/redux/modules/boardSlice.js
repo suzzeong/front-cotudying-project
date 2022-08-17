@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/Cookie';
 
-// const BASE_URL = 'http://15.164.162.55';
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://15.164.162.55';
+// const BASE_URL = 'http://localhost:3001';
 
 const config = {
   headers: {
@@ -17,12 +17,11 @@ export const __postCotudy = createAsyncThunk(
   'POST_COTUDY',
   async (payload, thunkAPI) => {
     try {
-      // const data = await axios.post(
-      //   `${BASE_URL}/api/board/write`,
-      //   payload,
-      //   config
-      // );
-      const data = await axios.post(`${BASE_URL}/cotudy`, payload, config);
+      const data = await axios.post(
+        `${BASE_URL}/api/board/write`,
+        payload,
+        config
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,9 +34,8 @@ export const __getCotudy = createAsyncThunk(
   'GET_COTUDY',
   async (payload, thunkAPI) => {
     try {
-      // const data = await axios.get(`${BASE_URL}/api/board`, config);
-      const data = await axios.get(`${BASE_URL}/cotudy`, config);
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await axios.get(`${BASE_URL}/api/board`, config);
+      return thunkAPI.fulfillWithValue(data.data.result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -49,8 +47,8 @@ export const __getDetail = createAsyncThunk(
   'GET_DETAIL',
   async (payload, thunkAPI) => {
     try {
-      // const data = await axios.get(`${BASE_URL}/api/board/${payload}`, config);
-      const data = await axios.get(`${BASE_URL}/cotudy/${payload}`, config);
+      const data = await axios.get(`${BASE_URL}/api/board/${payload}`, config);
+      console.log('data!!!!', data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,13 +61,8 @@ export const __deleteCotudy = createAsyncThunk(
   'DELETE_COTUDY',
   async (payload, thunkAPI) => {
     try {
-      // const data = await axios.delete(
-      //   `${BASE_URL}/api/board/${payload}`,
-      //   payload,
-      //   config
-      // );
       const data = await axios.delete(
-        `${BASE_URL}/cotudy/${payload}`,
+        `${BASE_URL}/api/board/${payload}`,
         payload,
         config
       );

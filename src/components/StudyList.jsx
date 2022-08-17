@@ -20,13 +20,15 @@ const StudyList = ({ className, data }) => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  // console.log(data)
+
+  console.log(data);
   return data.length === 0 ? (
     <StEmpty>모집 중인 스터디가 없습니다.</StEmpty>
   ) : (
     <StListContainer className={className}>
-      {Object.keys(data).length !== 0 &&
-        data.map((item) => <StudyCard key={item.id} data={item} />)}
+      {data.length !== 0
+        ? data.map((item) => <StudyCard key={item.id} data={item} />)
+        : null}
     </StListContainer>
   );
 };

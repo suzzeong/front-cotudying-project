@@ -27,18 +27,16 @@ const MainPage = () => {
   };
 
   const handleCreate = () => {
-    if (getCookie('ACCESS_TOKEN')) {
+    if (getCookie('ACCESS_TOKEN') !== undefined) {
       navigate('/create');
     } else {
       alert('로그인이 필요한 서비스입니다.');
       navigate('/login');
     }
-
-    // navigate('/create');
   };
 
   useEffect(() => {
-    dispatch(__getCotudy());
+    // dispatch(__getCotudy());
   }, [dispatch]);
 
   return (

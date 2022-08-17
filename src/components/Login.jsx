@@ -30,8 +30,7 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    // 주석
-    // dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
+    dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
   };
 
   useEffect(() => {

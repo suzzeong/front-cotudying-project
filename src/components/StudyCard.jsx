@@ -8,24 +8,35 @@ import { useNavigate } from 'react-router-dom';
 import { __getCotudy } from '../redux/modules/boardSlice';
 
 const StudyCard = ({ data }) => {
-  const { id, category, title, content, startDate, endDate, user, num } = data;
+  const {
+    id,
+    category,
+    title,
+    content,
+    startDate,
+    endDate,
+    num,
+    participant,
+    username,
+  } = data;
   const [isFull, setIsFull] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dateStart = startDate.substr(0, 10);
   const dateEnd = endDate.substr(0, 10);
 
-  // console.log(data.id)
+  // console.log(data);
   // console.log(user.length)
   // console.log(data.title)
 
   return (
-    <StCardContainer>
-      <StTextGroup>
-        <CommonText fs='20px' fw='bold'>
-          {category}
-        </CommonText>
-        {/* {user.length === num ? (
+    data !== null && (
+      <StCardContainer>
+        <StTextGroup>
+          <CommonText fs='20px' fw='bold'>
+            {category}
+          </CommonText>
+          {/* {user.length === num ? (
             <CommonText color={colors.disabledText} fw='bold'>
               모집 완료
             </CommonText>
@@ -34,25 +45,27 @@ const StudyCard = ({ data }) => {
               모집 중
             </CommonText>
           )} */}
-      </StTextGroup>
-      <StBox>{title}</StBox>
-      <StBox>
-        {dateStart} ~ {dateEnd}
-      </StBox>
-      <StContentBox>
-        {content.length < 70 ? content : `${content.substr(0, 70)}...`}
-      </StContentBox>
-      <StButtonGroup>
-        <CommonButton text='참여하기' />
-        {/* 로그인x -> 모든 버튼 참여하기로, 클릭시 로그인창 */}
-        <CommonButton
-          text='상세보기'
-          fontcolor={colors.black}
-          bgcolor={colors.white}
-          onClick={() => navigate(`/detail/${data.id}`)}
-        />
-      </StButtonGroup>
-    </StCardContainer>
+          <CommonText>{username}</CommonText>
+        </StTextGroup>
+        <StBox>{title}</StBox>
+        <StBox>
+          {dateStart} ~ {dateEnd}
+        </StBox>
+        <StContentBox>
+          {content.length < 70 ? content : `${content.substr(0, 70)}...`}
+        </StContentBox>
+        <StButtonGroup>
+          {/* <CommonButton text='참여하기' /> */}
+          {/* 로그인x -> 모든 버튼 참여하기로, 클릭시 로그인창 */}
+          <CommonButton
+            text='상세보기'
+            // fontcolor={colors.black}
+            bgcolor={colors.primary}
+            onClick={() => navigate(`/detail/${data.id}`)}
+          />
+        </StButtonGroup>
+      </StCardContainer>
+    )
   );
 };
 

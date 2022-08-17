@@ -107,16 +107,14 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // 주석
-    // dispatch(__signupUser(inputValue));
+    dispatch(__signupUser(inputValue));
   };
 
   const handleIdCheck = (e) => {
     e.preventDefault();
     if (!idError && inputValue.username !== '') {
       setIdCheck(true);
-      // 주석
-      // dispatch(__idCheck(inputValue.username));
+      dispatch(__idCheck(inputValue.username));
     }
   };
 
