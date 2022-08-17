@@ -11,13 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __getUser } from '../redux/modules/userSlice';
 
 const Router = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const token = useSelector((state) => state.users.user.userToken);
   console.log('token!!!!', token);
-
-  useEffect(() => {
-    dispatch(__getUser());
-  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -30,14 +26,18 @@ const Router = () => {
           />
           <Route
             path='/create'
-            // element={<CreatePage key={document.location.href} />}
-            element={token !== undefined ? <Navigate to='/' /> : <CreatePage />}
+            element={<CreatePage key={document.location.href} />}
+            // element={token !== undefined ? <Navigate to='/' /> : <CreatePage />}
           />
-          <Route
+          {/* <Route
             path='/login'
             element={token !== undefined ? <Navigate to='/' /> : <LoginPage />}
-          />
-          <Route
+          /> */}
+
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+
+          {/* <Route
             path='/signup'
             element={
               token !== undefined ? (
@@ -46,7 +46,7 @@ const Router = () => {
                 <SignupPage key={document.location.href} />
               )
             }
-          />
+          /> */}
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

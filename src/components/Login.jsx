@@ -18,7 +18,6 @@ const Login = () => {
     password: '',
   });
   const [isActive, setIsActive] = useState(false);
-
   const { error } = useSelector((state) => state.users);
 
   const handleCheck = (e) => {
@@ -46,7 +45,6 @@ const Login = () => {
       alert(error.result.msg);
     }
   }, [error]);
-
   return (
     <LoginContainer
       onSubmit={(e) => {
@@ -69,7 +67,6 @@ const Login = () => {
               margin='0 0 40px 0'
             />
           </StInput>
-
           <StInput>
             <CommonInput
               type='password'
@@ -90,7 +87,7 @@ const Login = () => {
             width='100%'
             height='50px'
             text='로그인'
-            disabled={isActive ? false : true}
+            // disabled={isActive ? false : true}
             // onClick={(e) => e.preventDefault()}
           />
           <CommonButton

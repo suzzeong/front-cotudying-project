@@ -54,9 +54,9 @@ const StudyForm = () => {
 
   const onSubmithandler = (e) => {
     e.preventDefault();
-    // dispatch(__postCotudy(cotudying)).then((res) =>
-    //   !res.error ? navigate('/') : alert('글 작성에 실패했습니다.')
-    // );
+    dispatch(__postCotudy(cotudying)).then((res) =>
+      !res.error ? navigate('/') : alert('글 작성에 실패했습니다.')
+    );
   };
   // console.log(title)
 

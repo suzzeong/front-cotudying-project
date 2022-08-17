@@ -35,7 +35,9 @@ export const __getCotudy = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(`${BASE_URL}/api/board`, config);
-      return thunkAPI.fulfillWithValue(data.data.result.data);
+
+      console.log('!!!!!!!!!!', data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -47,8 +49,7 @@ export const __getDetail = createAsyncThunk(
   'GET_DETAIL',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(`${BASE_URL}/api/board/${payload}`, config);
-      console.log('data!!!!', data);
+      const data = await axios.get(`${BASE_URL}/api/board/${payload}`);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

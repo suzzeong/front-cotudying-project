@@ -5,7 +5,7 @@ import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import CommonText from './elements/CommonText';
 import CategoryButton from './CategoryButton';
-import { useNavigate, useParams } from 'react-router-dom';
+import { createPath, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __deleteCotudy, __getDetail } from '../redux/modules/boardSlice';
 
@@ -18,6 +18,7 @@ import iconJava from '../assets/img/icon-java.png';
 import iconNode from '../assets/img/icon-node.png';
 import iconSpring from '../assets/img/icon-spring.png';
 import iconReact from '../assets/img/icon-react.png';
+import axios from 'axios';
 
 const icons = [
   { icon: iconAll, value: 'all' },
@@ -38,111 +39,122 @@ const StudyInfo = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const param = useParams();
+  const { id } = useParams();
+
+  const { isLoading } = useSelector((state) => state.cotudy);
 
   const cotudy = useSelector((state) => state.cotudy.detail);
   // const cotudy = cotudies.find((data) => data.id === parseInt(param.id));
-  const { startDate, endDate } = cotudy;
 
-  console.log(cotudy);
+  const { startDate, endDate } = cotudy;
 
   const icon = icons.filter((i) => i.value === cotudy.category);
 
-  const dateStart = startDate.substr(0, 10);
-  const dateEnd = endDate.substr(0, 10);
+  const dateStart = startDate && startDate.substr(0, 10);
+  const dateEnd = endDate && endDate.substr(0, 10);
 
-  useEffect(() => {
-    dispatch(__getDetail(cotudy.id));
-  }, [dispatch]);
+  console.log(isLoading);
 
   const onClickDeleteBtnHandler = (e) => {
     dispatch(__deleteCotudy(cotudy.id));
     navigate('/');
   };
 
+  useEffect(() => {
+    dispatch(__getDetail(id));
+  }, [dispatch, id]);
+
+  if (isLoading) {
+    return <div>로딩 중</div>;
+  }
+
   return (
-    <StInfo>
-      <InfoHeader>
-        <InfoLanguage>
-          {/* <StIcon>
+    <>
+      {Object.keys(cotudy).length !== 0 && (
+        <StInfo>
+          <InfoHeader>
+            <InfoLanguage>
+              {/* <StIcon>
             <img src={icon[0].icon} alt={icon[0].value} />
           </StIcon> */}
-          <React.Fragment>
-            {/* {cotudy.user.length === cotudy.num ? (
+              <React.Fragment>
+                {/* {cotudy.user.length === cotudy.num ? (
               <CommonText fs='30px'>모집완료</CommonText>
             ) : ( */}
-            <CommonText fs='30px'>모집중</CommonText>
-            {/* )} */}
-          </React.Fragment>
-        </InfoLanguage>
-        <StButton>
-          <React.Fragment>
-            {isLogin ? (
+                <CommonText fs='30px'>모집중</CommonText>
+                {/* )} */}
+              </React.Fragment>
+            </InfoLanguage>
+            <StButton>
               <React.Fragment>
-                <CommonButton
-                  bgcolor={colors.danger}
-                  fontcolor={colors.white}
-                  bgchover={colors.dangerhover}
-                  text='삭제하기'
-                  onClick={onClickDeleteBtnHandler}
-                  margin='0 0 0 10px'
-                />
+                {isLogin ? (
+                  <React.Fragment>
+                    <CommonButton
+                      bgcolor={colors.danger}
+                      fontcolor={colors.white}
+                      bgchover={colors.dangerhover}
+                      text='삭제하기'
+                      onClick={onClickDeleteBtnHandler}
+                      margin='0 0 0 10px'
+                    />
+                  </React.Fragment>
+                ) : (
+                  <>
+                    <CommonButton
+                      onClick={() => setDisabled(true)}
+                      bgcolor={colors.primary}
+                      fontcolor={colors.white}
+                      text={disabled ? '참여완료' : '참여하기'}
+                      disabled={disabled}
+                      // disabled={cotudy.user.length === cotudy.num ? 'disabled' : ''}
+                    />
+                  </>
+                )}
               </React.Fragment>
-            ) : (
-              <>
-                <CommonButton
-                  onClick={() => setDisabled(true)}
-                  bgcolor={colors.primary}
-                  fontcolor={colors.white}
-                  text={disabled ? '참여완료' : '참여하기'}
-                  disabled={disabled}
-                  // disabled={cotudy.user.length === cotudy.num ? 'disabled' : ''}
-                />
-              </>
-            )}
-          </React.Fragment>
-          <CommonButton
-            bgcolor={colors.danger}
-            fontcolor={colors.white}
-            bgchover={colors.dangerhover}
-            text='삭제하기'
-            onClick={onClickDeleteBtnHandler}
-            margin='0 0 0 10px'
-          ></CommonButton>
-          <CommonButton
-            bgcolor={colors.primary}
-            fontcolor={colors.white}
-            text='이전으로'
-            onClick={() => {
-              navigate(-1);
-            }}
-            margin='0 0 0 10px'
-          />
-        </StButton>
-      </InfoHeader>
-      <InfoContainer>
-        <InfoFlex>
-          <Infotitle>{cotudy.title}</Infotitle>
-          <Infonum>
-            {cotudy.user.length}/{cotudy.num}
-          </Infonum>
-        </InfoFlex>
-        <Infocontent>
-          {/* {cotudy.startDate} ~ {cotudy.endDate} */}
-          {dateStart} ~ {dateEnd}
-        </Infocontent>
-        <Infocontent minHt='200px'>
-          {cotudy.content.split('\n').map((line, i) => {
-            return (
-              <React.Fragment key={i}>
-                {line}
-                <br />
-              </React.Fragment>
-            );
-          })}
-        </Infocontent>
-      </InfoContainer>
-    </StInfo>
+              <CommonButton
+                bgcolor={colors.danger}
+                fontcolor={colors.white}
+                bgchover={colors.dangerhover}
+                text='삭제하기'
+                onClick={onClickDeleteBtnHandler}
+                margin='0 0 0 10px'
+              ></CommonButton>
+              <CommonButton
+                bgcolor={colors.primary}
+                fontcolor={colors.white}
+                text='이전으로'
+                onClick={() => {
+                  navigate(-1);
+                }}
+                margin='0 0 0 10px'
+              />
+            </StButton>
+          </InfoHeader>
+          <InfoContainer>
+            <InfoFlex>
+              <Infotitle>{cotudy.title}</Infotitle>
+              <Infonum>
+                {cotudy?.user?.length}/{cotudy.num}
+              </Infonum>
+            </InfoFlex>
+            <Infocontent>
+              {/* {cotudy.startDate} ~ {cotudy.endDate} */}
+              {dateStart} ~ {dateEnd}
+            </Infocontent>
+            <Infocontent minHt='200px'>
+              {cotudy.content.split('\n').map((line, i) => {
+                return (
+                  <React.Fragment key={i}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                );
+              })}
+            </Infocontent>
+          </InfoContainer>
+        </StInfo>
+      )}
+    </>
   );
 };
 
