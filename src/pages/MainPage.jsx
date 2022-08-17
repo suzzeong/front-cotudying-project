@@ -14,6 +14,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [category, setCategory] = useState('all');
+  const [select, setSelect] = useState(false);
 
   const data = useSelector((state) => state.cotudy.cotudy);
 
@@ -40,15 +41,11 @@ const MainPage = () => {
     dispatch(__getCotudy());
   }, [dispatch]);
 
-  // console.log(data);
-  // console.log(category);
-  // console.log(filteredData());
-
   return (
     <>
       <Header />
       <Layout>
-        <StNav category={category} onClick={handleCategory} />
+        <StNav category={category} onClick={handleCategory} isSelect={select} />
         <StButton>
           <CommonButton text='모집하기' onClick={handleCreate} fz='20px' />
         </StButton>

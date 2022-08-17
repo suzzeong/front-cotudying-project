@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { __loginUser } from '../redux/modules/userSlice';
-
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
@@ -19,6 +19,8 @@ const Login = () => {
   });
   const [isActive, setIsActive] = useState(false);
 
+  const { error } = useSelector((state) => state.users);
+
   const handleCheck = (e) => {
     setIsActive(e);
   };
@@ -28,7 +30,8 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
+    // 주석
+    // dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
   };
 
   useEffect(() => {
@@ -39,15 +42,11 @@ const Login = () => {
     }
   }, [formValue]);
 
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   if (formValue.username === '') {
-  //     return alert('작성자 이름을 입력해주세요');
-  //   } else if (formValue.password  === '') {
-  //     return alert('제목을 입력해주세요');
-  //   }
-  //   dispatch(_postCotudy(formValue));
-  // };
+  useEffect(() => {
+    if (error) {
+      alert(error.result.msg);
+    }
+  }, [error]);
 
   return (
     <LoginContainer

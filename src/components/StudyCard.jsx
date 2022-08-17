@@ -37,7 +37,7 @@ const StudyCard = ({ data }) => {
       </StTextGroup>
       <StBox>{title}</StBox>
       <StBox>
-        {dateStart}~{dateEnd}
+        {dateStart} ~ {dateEnd}
       </StBox>
       <StContentBox>
         {content.length < 70 ? content : `${content.substr(0, 70)}...`}

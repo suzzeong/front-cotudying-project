@@ -70,13 +70,5 @@
       "user": [],
       "id": 8
     }
-  ],
-  "user": [
-    {
-      "token": "eyJ0eXAi...",
-      "name": "김항해",
-      "username": "123456",
-      "password": "123456"
-    }
   ]
 }

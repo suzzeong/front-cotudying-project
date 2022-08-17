@@ -1,17 +1,34 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/Cookie';
-import { setAuthorizationToken } from '../../AuthorizationToken';
+
+const BASE_URL = 'http://15.164.162.55';
+
+const config = {
+  headers: {
+    Authorization: `Bearer ${getCookie('ACCESS_TOKEN')}`,
+  },
+};
+
+export const __idCheck = createAsyncThunk(
+  'ID_CHECK',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post(`${BASE_URL}/api/idCheck`, payload);
+      return thunkAPI.fulfillWithValue(data.data.result.msg);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 export const __loginUser = createAsyncThunk(
   'LOGIN_USER',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post('http://3.34.185.48/api/login', payload);
-      setCookie('ACCESS_TOKEN', data.data.mytoken);
-      // setCookie('ACCESS_TOKEN', data.data.result.data.accessToken);
-      // setCookie('REFRESH_TOKEN', data.data.result.data.refreshToken);
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await axios.post(`${BASE_URL}/api/login`, payload);
+      setCookie('ACCESS_TOKEN', data.data.result.data.accessToken);
+      return thunkAPI.fulfillWithValue(data.data.result.data.accessToken);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -22,7 +39,19 @@ export const __signupUser = createAsyncThunk(
   'SIGNUP_USER',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post('http://54.180.31.152/api/signup', payload);
+      const data = await axios.post(`${BASE_URL}/api/signup`, payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getUser = createAsyncThunk(
+  'GET_USER',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get(`${BASE_URL}/api/user`, config);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -41,11 +70,7 @@ const initialState = {
 export const userSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
-    getUser: (state, action) => {
-      state.user.userToken = getCookie('ACCESS_TOKEN');
-    },
-  },
+  reducers: {},
   extraReducers: {
     [__loginUser.pending]: (state) => {
       state.isLoading = true;
@@ -58,19 +83,37 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.response.data;
     },
+    [__idCheck.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      // state.user.usertoKen = getCookie('ACCESS_TOKEN');
+    },
+    [__idCheck.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.response.data;
+    },
     [__signupUser.pending]: (state) => {
       state.isLoading = true;
     },
     [__signupUser.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.list = action.payload;
+      state.user = action.payload;
     },
     [__signupUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__getUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    [__getUser.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
   },
 });
 
-export const { getUser } = userSlice.actions;
 export default userSlice.reducer;
