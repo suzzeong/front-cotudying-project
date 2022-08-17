@@ -39,6 +39,7 @@ const StudyInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const param = useParams();
+
   const cotudy = useSelector((state) => state.cotudy.detail);
   // const cotudy = cotudies.find((data) => data.id === parseInt(param.id));
   const { startDate, endDate } = cotudy;
@@ -51,7 +52,7 @@ const StudyInfo = () => {
   const dateEnd = endDate.substr(0, 10);
 
   useEffect(() => {
-    dispatch(__getDetail(param));
+    dispatch(__getDetail(cotudy.id));
   }, [dispatch]);
 
   const onClickDeleteBtnHandler = (e) => {
