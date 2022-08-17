@@ -24,7 +24,7 @@ const icons = [
   { icon: iconEtc, value: 'etc' },
 ];
 
-const Nav = ({ className, category, onClick }) => {
+const Nav = ({ className, category, onClick, isSelect }) => {
   return (
     <>
       <StNav className={className}>
@@ -36,6 +36,7 @@ const Nav = ({ className, category, onClick }) => {
               onClick={onClick}
               category={category}
               value={icon.value}
+              isSelect={isSelect}
             />
           ))}
         </StNavList>

@@ -21,7 +21,7 @@ const StudyForm = () => {
   const [endDate, setEndDate] = useState('');
   const [category, setCategory] = useState('');
   const [content, setContent] = useState('');
-  const [user, setUser] = useState([]);
+  const [name, setName] = useState('작성자');
   const [isActive, setIsActive] = useState(true);
 
   const cotudying = {
@@ -31,11 +31,11 @@ const StudyForm = () => {
     endDate: endDate,
     category: category,
     content: content,
-    user: user,
+    name: name,
   };
 
   // console.log(startDate, endDate);
-  // const { id, category, title, content, startDate, endDate, user, num } = data;
+  // const { id, category, title, content, startDate, endDate, name, num } = data;
 
   useEffect(() => {
     if (

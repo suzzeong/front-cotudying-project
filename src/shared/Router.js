@@ -8,16 +8,16 @@ import SignupPage from '../pages/SignupPage';
 import ScrollToTop from './ScrollToTop';
 import { getCookie } from './Cookie';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../redux/modules/userSlice';
+import { __getUser } from '../redux/modules/userSlice';
 
 const Router = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const token = useSelector((state) => state.users.user.userToken);
-  console.log('token!!!!', token);
+  // console.log('token!!!!', token);
 
-  useEffect(() => {
-    dispatch(getUser());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(__getUser());
+  // }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -31,7 +31,7 @@ const Router = () => {
           <Route
             path='/create'
             element={
-              token !== undefined ? (
+              token !== '' ? (
                 <CreatePage key={document.location.href} />
               ) : (
                 <LoginPage />
@@ -40,7 +40,8 @@ const Router = () => {
           />
           <Route
             path='/login'
-            element={token !== undefined ? <Navigate to='/' /> : <LoginPage />}
+            element={token !== '' ? <Navigate to='/' /> : <LoginPage />}
+            // element={<LoginPage />}
           />
           <Route
             path='/signup'

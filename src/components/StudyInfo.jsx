@@ -4,9 +4,32 @@ import js from '../assets/img/icon-js.png';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import CommonText from './elements/CommonText';
+import CategoryButton from './CategoryButton';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { __deleteCotudy, __getCotudy } from '../redux/modules/boardSlice';
+import { __deleteCotudy, __getDetail } from '../redux/modules/boardSlice';
+
+import iconAll from '../assets/img/icon-all.png';
+import iconEtc from '../assets/img/icon-etc.png';
+import iconJs from '../assets/img/icon-js.png';
+import iconPython from '../assets/img/icon-python.png';
+import iconC from '../assets/img/icon-c.png';
+import iconJava from '../assets/img/icon-java.png';
+import iconNode from '../assets/img/icon-node.png';
+import iconSpring from '../assets/img/icon-spring.png';
+import iconReact from '../assets/img/icon-react.png';
+
+const icons = [
+  { icon: iconAll, value: 'all' },
+  { icon: iconSpring, value: 'spring' },
+  { icon: iconJava, value: 'java' },
+  { icon: iconReact, value: 'react' },
+  { icon: iconJs, value: 'js' },
+  { icon: iconNode, value: 'node' },
+  { icon: iconPython, value: 'python' },
+  { icon: iconC, value: 'c' },
+  { icon: iconEtc, value: 'etc' },
+];
 
 const StudyInfo = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -16,34 +39,35 @@ const StudyInfo = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const param = useParams();
-  const data = useSelector((state) => state.cotudy.cotudy);
-  const { id, category, title, content, startDate, endDate, user, num } = data;
-  const datas = data.find((data) => data.id === parseInt(param.id));
+  const cotudy = useSelector((state) => state.cotudy.detail);
+  // const cotudy = cotudies.find((data) => data.id === parseInt(param.id));
+  const { startDate, endDate } = cotudy;
 
-  // console.log(datas.startDate)
+  console.log(cotudy);
 
-  const dateStart = datas.startDate.substr(0, 10);
-  const dateEnd = datas.endDate.substr(0, 10);
+  const icon = icons.filter((i) => i.value === cotudy.category);
+
+  const dateStart = startDate.substr(0, 10);
+  const dateEnd = endDate.substr(0, 10);
 
   useEffect(() => {
-    dispatch(__getCotudy());
+    dispatch(__getDetail(param));
   }, [dispatch]);
 
   const onClickDeleteBtnHandler = (e) => {
-    dispatch(__deleteCotudy(datas.id));
+    dispatch(__deleteCotudy(cotudy.id));
     navigate('/');
   };
-  // console.log(datas)
 
   return (
     <StInfo>
       <InfoHeader>
         <InfoLanguage>
-          <StIcon>
-            <img src={js} alt='아이콘' />
-          </StIcon>
+          {/* <StIcon>
+            <img src={icon[0].icon} alt={icon[0].value} />
+          </StIcon> */}
           <React.Fragment>
-            {/* {datas.user.length === datas.num ? (
+            {/* {cotudy.user.length === cotudy.num ? (
               <CommonText fs='30px'>모집완료</CommonText>
             ) : ( */}
             <CommonText fs='30px'>모집중</CommonText>
@@ -54,14 +78,14 @@ const StudyInfo = () => {
           <React.Fragment>
             {isLogin ? (
               <React.Fragment>
-                {/* <CommonButton
+                <CommonButton
                   bgcolor={colors.danger}
                   fontcolor={colors.white}
                   bgchover={colors.dangerhover}
                   text='삭제하기'
                   onClick={onClickDeleteBtnHandler}
                   margin='0 0 0 10px'
-                /> */}
+                />
               </React.Fragment>
             ) : (
               <>
@@ -71,7 +95,7 @@ const StudyInfo = () => {
                   fontcolor={colors.white}
                   text={disabled ? '참여완료' : '참여하기'}
                   disabled={disabled}
-                  // disabled={datas.user.length === datas.num ? 'disabled' : ''}
+                  // disabled={cotudy.user.length === cotudy.num ? 'disabled' : ''}
                 />
               </>
             )}
@@ -97,22 +121,22 @@ const StudyInfo = () => {
       </InfoHeader>
       <InfoContainer>
         <InfoFlex>
-          <Infotitle>{datas.title}</Infotitle>
+          <Infotitle>{cotudy.title}</Infotitle>
           <Infonum>
-            {datas.user.length}/{datas.num}
+            {cotudy.user.length}/{cotudy.num}
           </Infonum>
         </InfoFlex>
         <Infocontent>
-          {/* {datas.startDate} ~ {datas.endDate} */}
+          {/* {cotudy.startDate} ~ {cotudy.endDate} */}
           {dateStart} ~ {dateEnd}
         </Infocontent>
-        <Infocontent>
-          {datas.content.split('\n').map((line) => {
+        <Infocontent minHt='200px'>
+          {cotudy.content.split('\n').map((line, i) => {
             return (
-              <>
+              <React.Fragment key={i}>
                 {line}
                 <br />
-              </>
+              </React.Fragment>
             );
           })}
         </Infocontent>
@@ -180,4 +204,5 @@ const Infocontent = styled.div`
   border-radius: 10px;
   padding: 20px;
   margin: 0 0 20px;
+  min-height: ${(props) => props.minHt};
 `;

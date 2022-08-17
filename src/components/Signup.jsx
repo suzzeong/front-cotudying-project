@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { __signupUser } from '../redux/modules/userSlice';
+import { __idCheck, __signupUser } from '../redux/modules/userSlice';
 import { colors } from '../theme/theme';
 import CommonButton from './elements/CommonButton';
 import CommonInput from './elements/CommonInput';
@@ -15,7 +15,7 @@ const Signup = () => {
     username: '',
     nickname: '',
     password: '',
-    passwordConfirm: '',
+    passwordcheck: '',
   });
 
   const [formError, setFormError] = useState({
@@ -29,7 +29,7 @@ const Signup = () => {
   const [isSameId, setIsSameId] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
-  const { username, nickname, password, passwordConfirm } = inputValue;
+  const { username, nickname, password, passwordcheck } = inputValue;
   const { idError, nameError, passwordError, confirmPasswordError } = formError;
 
   // username 체크
@@ -72,9 +72,11 @@ const Signup = () => {
   // password 체크
   const handleChangePassword = (e) => {
     const passwordRegex =
-      /^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{6,20}$/;
+      /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     if (!e.target.value || passwordRegex.test(e.target.value)) {
       setFormError({ ...formError, passwordError: false });
+    } else if (passwordcheck === e.target.value) {
+      setFormError({ ...formError, confirmPasswordError: false });
     } else {
       setFormError({ ...formError, passwordError: true });
     }
@@ -98,20 +100,23 @@ const Signup = () => {
     setInputValue((prev) => {
       return {
         ...prev,
-        passwordConfirm: e.target.value,
+        passwordcheck: e.target.value,
       };
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(__signupUser(inputValue));
+    // 주석
+    // dispatch(__signupUser(inputValue));
   };
 
   const handleIdCheck = (e) => {
     e.preventDefault();
     if (!idError && inputValue.username !== '') {
       setIdCheck(true);
+      // 주석
+      // dispatch(__idCheck(inputValue.username));
     }
   };
 
@@ -120,7 +125,7 @@ const Signup = () => {
       nickname !== '' &&
       username !== '' &&
       password !== '' &&
-      // passwordConfirm !== '' &&
+      passwordcheck !== '' &&
       !idError &&
       !nameError &&
       !passwordError &&
@@ -132,7 +137,7 @@ const Signup = () => {
     } else {
       setIsActive(false);
     }
-  }, [nickname, username, password, passwordConfirm, idCheck, isSameId]);
+  }, [nickname, username, password, passwordcheck, idCheck, isSameId]);
 
   return (
     <SignupContainer>
@@ -196,18 +201,20 @@ const Signup = () => {
               label='Password'
               placeholder='Password'
               margin='0 0 40px 0'
-              maxLength='16'
+              maxLength='15'
             />
             {passwordError ? (
-              <StMessage>6자 이상 16자 이하, 영어와 숫자</StMessage>
+              <StMessage>
+                8자 이상 15자 이하의 영어와 숫자, 특수문자 포함
+              </StMessage>
             ) : null}
           </StInput>
 
-          {/* <StInput>
+          <StInput>
             <CommonInput
               type='password'
-              value={passwordConfirm}
-              name='passwordConfirm'
+              value={passwordcheck}
+              name='passwordcheck'
               onChange={handleChangeConfirmPassword}
               label='Confirm password'
               placeholder='Confirm password'
@@ -217,7 +224,7 @@ const Signup = () => {
             {confirmPasswordError ? (
               <StMessage>비밀번호가 일치하지 않습니다.</StMessage>
             ) : null}
-          </StInput> */}
+          </StInput>
         </StInputBox>
 
         <LoginButton>
