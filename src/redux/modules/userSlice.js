@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/Cookie';
 
-const BASE_URL = 'http://15.164.162.55';
+const BASE_URL = 'http://43.200.163.200';
 
 const config = {
   headers: {

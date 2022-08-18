@@ -58,7 +58,7 @@ const StudyForm = () => {
       !res.error ? navigate('/') : alert('글 작성에 실패했습니다.')
     );
   };
-  // console.log(title)
+  console.log(cotudying)
 
   return (
     <StContainer>
