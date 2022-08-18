@@ -61,7 +61,9 @@ const StudyInfo = () => {
 
   useEffect(() => {
     dispatch(__getDetail(id));
-    dispatch(__getUser(userId));
+    if (token !== undefined) {
+      dispatch(__getUser(userId));
+    }
   }, [dispatch, id]);
 
   if (isLoading) {
