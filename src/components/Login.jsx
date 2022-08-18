@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { __loginUser } from '../redux/modules/userSlice';
+import { __loginUser, __getUser } from '../redux/modules/userSlice';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { colors } from '../theme/theme';
@@ -18,7 +18,7 @@ const Login = () => {
     password: '',
   });
   const [isActive, setIsActive] = useState(false);
-  const { error } = useSelector((state) => state.users);
+  const { error, user } = useSelector((state) => state.users);
 
   const handleCheck = (e) => {
     setIsActive(e);
@@ -29,7 +29,10 @@ const Login = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    dispatch(__loginUser(formValue)).then((res) => !res.error && navigate('/'));
+    dispatch(__loginUser(formValue)).then(() => {
+      navigate('/');
+      window.location.reload();
+    });
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ const Login = () => {
       alert(error.result.msg);
     }
   }, [error]);
+
   return (
     <LoginContainer
       onSubmit={(e) => {
@@ -87,8 +91,7 @@ const Login = () => {
             width='100%'
             height='50px'
             text='로그인'
-            // disabled={isActive ? false : true}
-            // onClick={(e) => e.preventDefault()}
+            disabled={isActive ? false : true}
           />
           <CommonButton
             type='button'

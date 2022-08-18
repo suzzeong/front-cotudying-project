@@ -12,8 +12,10 @@ import { __getUser } from '../redux/modules/userSlice';
 
 const Router = () => {
   // const dispatch = useDispatch();
-  const token = useSelector((state) => state.users.user.userToken);
-  console.log('token!!!!', token);
+  // const userInfo = useSelector((state) => state.users.user.result.data);
+  // console.log('userInfo!!!!', userInfo);
+  const token = getCookie('ACCESS_TOKEN');
+  console.log('token!!', token);
 
   return (
     <BrowserRouter>
@@ -26,27 +28,16 @@ const Router = () => {
           />
           <Route
             path='/create'
-            element={<CreatePage key={document.location.href} />}
-            // element={token !== undefined ? <Navigate to='/' /> : <CreatePage />}
+            element={token === undefined ? <Navigate to='/' /> : <CreatePage />}
           />
-          {/* <Route
+          <Route
             path='/login'
-            element={token !== undefined ? <Navigate to='/' /> : <LoginPage />}
-          /> */}
-
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/signup' element={<SignupPage />} />
-
-          {/* <Route
+            element={token === undefined ? <LoginPage /> : <Navigate to='/' />}
+          />
+          <Route
             path='/signup'
-            element={
-              token !== undefined ? (
-                <Navigate to='/' />
-              ) : (
-                <SignupPage key={document.location.href} />
-              )
-            }
-          /> */}
+            element={token === undefined ? <SignupPage /> : <Navigate to='/' />}
+          />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>

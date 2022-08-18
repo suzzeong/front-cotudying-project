@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { isCompositeComponent } from 'react-dom/test-utils';
 import { getCookie, setCookie } from '../../shared/Cookie';
 
 const BASE_URL = 'http://43.200.163.200';
-// const BASE_URL = 'http://localhost:3001';
 
 const config = {
   headers: {
@@ -11,7 +11,6 @@ const config = {
   },
 };
 
-// ==========================================================
 // post
 export const __postCotudy = createAsyncThunk(
   'POST_COTUDY',
@@ -35,8 +34,6 @@ export const __getCotudy = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(`${BASE_URL}/api/board`, config);
-
-      // console.log('!!!!!!!!!!', data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -57,27 +54,23 @@ export const __getDetail = createAsyncThunk(
   }
 );
 
-// delete - 로그인 시 실행
+// delete
 export const __deleteCotudy = createAsyncThunk(
   'DELETE_COTUDY',
   async (payload, thunkAPI) => {
     try {
       const data = await axios.delete(
-        `${BASE_URL}/api/board/${payload}`,
+        `${BASE_URL}/api/board/${payload}/delete`,
         payload,
         config
       );
-      console.log('!!!!!!!!!!', data.data);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
-// patch 참여하기
-
-// ==========================================================
 
 const initialState = {
   cotudy: [],
@@ -133,7 +126,7 @@ export const boardSlice = createSlice({
     },
     [__deleteCotudy.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.detail = action.payload;
+      state.cotudy = state.cotudy.filter((item) => item.id !== action.payload);
     },
     [__deleteCotudy.rejected]: (state, action) => {
       state.isLoading = false;

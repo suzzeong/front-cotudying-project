@@ -21,7 +21,6 @@ const StudyForm = () => {
   const [endDate, setEndDate] = useState('');
   const [category, setCategory] = useState('');
   const [content, setContent] = useState('');
-  const [name, setName] = useState('작성자');
   const [isActive, setIsActive] = useState(true);
 
   const cotudying = {
@@ -31,11 +30,7 @@ const StudyForm = () => {
     endDate: endDate,
     category: category,
     content: content,
-    name: name,
   };
-
-  // console.log(startDate, endDate);
-  // const { id, category, title, content, startDate, endDate, name, num } = data;
 
   useEffect(() => {
     if (
@@ -58,7 +53,6 @@ const StudyForm = () => {
       !res.error ? navigate('/') : alert('글 작성에 실패했습니다.')
     );
   };
-  console.log(cotudying)
 
   return (
     <StContainer>
@@ -78,7 +72,7 @@ const StudyForm = () => {
               ht='100%'
               name='모집 인원'
               value={num}
-              values={[2, 3, 4]}
+              values={[2, 3, 4, 5, 6]}
               onChange={(e) => {
                 setNum(e.target.value);
               }}
@@ -120,7 +114,16 @@ const StudyForm = () => {
               onChange={(e) => {
                 setCategory(e.target.value);
               }}
-              values={['spring', 'java', 'react', 'js', 'python', 'c', 'etc']}
+              values={[
+                'Spring',
+                'Java',
+                'React',
+                'JavaScript',
+                'Python',
+                'Node',
+                'C',
+                'Etc',
+              ]}
             />
           </StMidFormBox>
         </StBlock>
