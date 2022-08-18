@@ -118,7 +118,6 @@ const Signup = () => {
     e.preventDefault();
     if (!idError && inputValue.username !== '') {
       setIdCheck(true);
-      dispatch(__idCheck(inputValue.username));
     }
   };
 

@@ -13,7 +13,7 @@ import { getCookie } from '../shared/Cookie';
 const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [category, setCategory] = useState('all');
+  const [category, setCategory] = useState('All');
 
   const data = useSelector((state) => state.cotudy.cotudy);
 
@@ -46,7 +46,7 @@ const MainPage = () => {
         <StButton>
           <CommonButton text='모집하기' onClick={handleCreate} fz='20px' />
         </StButton>
-        <StStudyList data={category === 'all' ? data : filteredData()} />
+        <StStudyList data={category === 'All' ? data : filteredData()} />
       </Layout>
     </>
   );

@@ -18,7 +18,7 @@ const Header = () => {
     removeCookie('ACCESS_TOKEN');
     removeCookie('nickname');
     removeCookie('userid');
-    alert('로그아웃');
+    alert('로그아웃 되었습니다');
     navigate('/');
     window.location.reload();
   };

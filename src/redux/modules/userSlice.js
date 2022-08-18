@@ -10,18 +10,6 @@ const config = {
   },
 };
 
-export const __idCheck = createAsyncThunk(
-  'ID_CHECK',
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.post(`${BASE_URL}/api/idCheck`, payload);
-      return thunkAPI.fulfillWithValue(data.data.result.msg);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
 export const __loginUser = createAsyncThunk(
   'LOGIN_USER',
   async (payload, thunkAPI) => {
@@ -81,14 +69,6 @@ export const userSlice = createSlice({
       state.isLogin = true;
     },
     [__loginUser.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload.response.data;
-    },
-    [__idCheck.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      // state.user.usertoKen = getCookie('ACCESS_TOKEN');
-    },
-    [__idCheck.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload.response.data;
     },
