@@ -13,15 +13,15 @@ import iconSpring from '../assets/img/icon-spring.png';
 import iconReact from '../assets/img/icon-react.png';
 
 const icons = [
-  { icon: iconAll, value: 'all' },
-  { icon: iconSpring, value: 'spring' },
-  { icon: iconJava, value: 'java' },
-  { icon: iconReact, value: 'react' },
-  { icon: iconJs, value: 'js' },
-  { icon: iconNode, value: 'node' },
-  { icon: iconPython, value: 'python' },
-  { icon: iconC, value: 'c' },
-  { icon: iconEtc, value: 'etc' },
+  { icon: iconAll, value: 'All' },
+  { icon: iconSpring, value: 'Spring' },
+  { icon: iconJava, value: 'Java' },
+  { icon: iconReact, value: 'React' },
+  { icon: iconJs, value: 'JavaScript' },
+  { icon: iconNode, value: 'Node' },
+  { icon: iconPython, value: 'Python' },
+  { icon: iconC, value: 'C' },
+  { icon: iconEtc, value: 'Etc' },
 ];
 
 const Nav = ({ className, category, onClick, isSelect }) => {

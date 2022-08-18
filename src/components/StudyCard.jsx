@@ -47,7 +47,7 @@ const StudyCard = ({ data }) => {
           )} */}
           <CommonText>{username}</CommonText>
         </StTextGroup>
-        <StBox>{title}</StBox>
+        <StBoxTitle>{title}</StBoxTitle>
         <StBox>
           {dateStart} ~ {dateEnd}
         </StBox>
@@ -85,14 +85,21 @@ const StTextGroup = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
+
+const StBoxTitle = styled.div`
+  background-color: ${colors.white};
+  padding: 6px 10px;
+  min-height: 60px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+`;
 const StBox = styled.div`
   background-color: ${colors.white};
   padding: 6px;
   text-align: center;
   border-radius: 6px;
-  & + & {
-    margin-top: 10px;
-  }
+  margin-top: 10px;
 `;
 
 const StContentBox = styled.div`

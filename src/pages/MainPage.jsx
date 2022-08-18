@@ -34,6 +34,10 @@ const MainPage = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(__getCotudy());
+  }, [dispatch]);
+
   return (
     <>
       <Header />

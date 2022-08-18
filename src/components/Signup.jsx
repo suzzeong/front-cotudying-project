@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { __idCheck, __signupUser } from '../redux/modules/userSlice';
 import { colors } from '../theme/theme';
@@ -10,6 +11,7 @@ import Logo from './Logo';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [inputValue, setInputValue] = useState({
     username: '',
@@ -107,7 +109,9 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(__signupUser(inputValue));
+    dispatch(__signupUser(inputValue)).then(
+      (res) => !res.error && navigate('/login')
+    );
   };
 
   const handleIdCheck = (e) => {

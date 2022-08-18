@@ -16,6 +16,8 @@ const Header = () => {
 
   const hanedleLogout = () => {
     removeCookie('ACCESS_TOKEN');
+    removeCookie('nickname');
+    removeCookie('userid');
     alert('로그아웃');
     navigate('/');
     window.location.reload();
@@ -23,11 +25,10 @@ const Header = () => {
 
   useEffect(() => {
     const token = getCookie('ACCESS_TOKEN');
+    const nickname = getCookie('nickname');
     if (token !== undefined) {
-      setUser(jwt(token));
+      setUser(nickname);
     }
-
-    console.log(token);
   }, []);
 
   return (
@@ -40,7 +41,7 @@ const Header = () => {
               {user ? (
                 <StUser>
                   <StLoginText>
-                    <StName>{user.sub}</StName>님 환영합니다.
+                    <StName>{user}</StName>님 환영합니다.
                   </StLoginText>
                   <StButton>
                     <CommonButton

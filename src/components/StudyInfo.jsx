@@ -19,22 +19,21 @@ import iconJava from '../assets/img/icon-java.png';
 import iconNode from '../assets/img/icon-node.png';
 import iconSpring from '../assets/img/icon-spring.png';
 import iconReact from '../assets/img/icon-react.png';
-import axios from 'axios';
+import { getCookie } from '../shared/Cookie';
 
 const icons = [
-  { icon: iconAll, value: 'all' },
-  { icon: iconSpring, value: 'spring' },
-  { icon: iconJava, value: 'java' },
-  { icon: iconReact, value: 'react' },
-  { icon: iconJs, value: 'js' },
-  { icon: iconNode, value: 'node' },
-  { icon: iconPython, value: 'python' },
-  { icon: iconC, value: 'c' },
-  { icon: iconEtc, value: 'etc' },
+  { icon: iconAll, value: 'All' },
+  { icon: iconSpring, value: 'Spring' },
+  { icon: iconJava, value: 'Java' },
+  { icon: iconReact, value: 'React' },
+  { icon: iconJs, value: 'JavaScript' },
+  { icon: iconNode, value: 'Node' },
+  { icon: iconPython, value: 'Python' },
+  { icon: iconC, value: 'C' },
+  { icon: iconEtc, value: 'Etc' },
 ];
 
 const StudyInfo = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [isIng, setIsIng] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
@@ -43,36 +42,33 @@ const StudyInfo = () => {
   const { id } = useParams();
 
   const { isLoading } = useSelector((state) => state.cotudy);
-
   const cotudy = useSelector((state) => state.cotudy.detail);
-  // const cotudy = cotudies.find((data) => data.id === parseInt(param.id));
-
+  const { user, isLogin } = useSelector((state) => state.users);
   const { startDate, endDate } = cotudy;
-
   const icon = icons.filter((i) => i.value === cotudy.category);
+  const token = getCookie('ACCESS_TOKEN');
 
   const dateStart = startDate && startDate.substr(0, 10);
   const dateEnd = endDate && endDate.substr(0, 10);
-
-  // console.log(isLoading);
+  const userId = getCookie('userid');
 
   const onClickDeleteBtnHandler = () => {
-    if(window.confirm("글을 삭제하시겠습니까?")){
-    dispatch(__deleteCotudy(id));
-   }
-    navigate('/');
+    if (window.confirm('글을 삭제하시겠습니까?')) {
+      dispatch(__deleteCotudy(id));
+      navigate('/');
+    }
   };
-  console.log(id)
 
   useEffect(() => {
     dispatch(__getDetail(id));
+    dispatch(__getUser(userId));
   }, [dispatch, id]);
-
-// if  (dispatch(__getUser(isLogin)), [dispatch, id])
 
   if (isLoading) {
     return <div>로딩 중</div>;
   }
+
+  console.log('icon', icon);
 
   return (
     <>
@@ -80,9 +76,9 @@ const StudyInfo = () => {
         <StInfo>
           <InfoHeader>
             <InfoLanguage>
-              {/* <StIcon>
-            <img src={icon[0].icon} alt={icon[0].value} />
-          </StIcon> */}
+              <StIcon>
+                <img src={icon[0].icon} alt={icon[0].icon} />
+              </StIcon>
               <React.Fragment>
                 {/* {cotudy.user.length === cotudy.num ? (
               <CommonText fs='30px'>모집완료</CommonText>
@@ -93,7 +89,8 @@ const StudyInfo = () => {
             </InfoLanguage>
             <StButton>
               <React.Fragment>
-                {isLogin ? (
+                {Object.keys(user).length !== 0 &&
+                user.result.data.id === cotudy.registerUserId ? (
                   <React.Fragment>
                     <CommonButton
                       bgcolor={colors.danger}
@@ -106,14 +103,14 @@ const StudyInfo = () => {
                   </React.Fragment>
                 ) : (
                   <>
-                    <CommonButton
+                    {/* <CommonButton
                       onClick={() => setDisabled(true)}
                       bgcolor={colors.primary}
                       fontcolor={colors.white}
                       text={disabled ? '참여완료' : '참여하기'}
                       disabled={disabled}
                       // disabled={cotudy.user.length === cotudy.num ? 'disabled' : ''}
-                    />
+                    /> */}
                   </>
                 )}
               </React.Fragment>
@@ -139,9 +136,7 @@ const StudyInfo = () => {
           <InfoContainer>
             <InfoFlex>
               <Infotitle>{cotudy.title}</Infotitle>
-              <Infonum>
-                {cotudy?.user?.length}/{cotudy.num}
-              </Infonum>
+              <Infonum>{cotudy.num}명 모집</Infonum>
             </InfoFlex>
             <Infocontent>
               {/* {cotudy.startDate} ~ {cotudy.endDate} */}
