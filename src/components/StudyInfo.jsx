@@ -8,6 +8,7 @@ import CategoryButton from './CategoryButton';
 import { createPath, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __deleteCotudy, __getDetail } from '../redux/modules/boardSlice';
+import { __getUser } from '../redux/modules/userSlice';
 
 import iconAll from '../assets/img/icon-all.png';
 import iconEtc from '../assets/img/icon-etc.png';
@@ -53,16 +54,21 @@ const StudyInfo = () => {
   const dateStart = startDate && startDate.substr(0, 10);
   const dateEnd = endDate && endDate.substr(0, 10);
 
-  console.log(isLoading);
+  // console.log(isLoading);
 
-  const onClickDeleteBtnHandler = (e) => {
-    dispatch(__deleteCotudy(cotudy.id));
+  const onClickDeleteBtnHandler = () => {
+    if(window.confirm("글을 삭제하시겠습니까?")){
+    dispatch(__deleteCotudy(id));
+   }
     navigate('/');
   };
+  console.log(id)
 
   useEffect(() => {
     dispatch(__getDetail(id));
   }, [dispatch, id]);
+
+// if  (dispatch(__getUser(isLogin)), [dispatch, id])
 
   if (isLoading) {
     return <div>로딩 중</div>;
@@ -111,14 +117,14 @@ const StudyInfo = () => {
                   </>
                 )}
               </React.Fragment>
-              <CommonButton
+              {/* <CommonButton
                 bgcolor={colors.danger}
                 fontcolor={colors.white}
                 bgchover={colors.dangerhover}
                 text='삭제하기'
                 onClick={onClickDeleteBtnHandler}
                 margin='0 0 0 10px'
-              ></CommonButton>
+              ></CommonButton> */}
               <CommonButton
                 bgcolor={colors.primary}
                 fontcolor={colors.white}

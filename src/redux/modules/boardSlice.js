@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/Cookie';
 
-const BASE_URL = 'http://15.164.162.55';
+const BASE_URL = 'http://43.200.163.200';
 // const BASE_URL = 'http://localhost:3001';
 
 const config = {
@@ -36,7 +36,7 @@ export const __getCotudy = createAsyncThunk(
     try {
       const data = await axios.get(`${BASE_URL}/api/board`, config);
 
-      console.log('!!!!!!!!!!', data.data);
+      // console.log('!!!!!!!!!!', data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -67,6 +67,7 @@ export const __deleteCotudy = createAsyncThunk(
         payload,
         config
       );
+      console.log('!!!!!!!!!!', data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -132,7 +133,7 @@ export const boardSlice = createSlice({
     },
     [__deleteCotudy.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.cotudy = action.payload;
+      state.detail = action.payload;
     },
     [__deleteCotudy.rejected]: (state, action) => {
       state.isLoading = false;
